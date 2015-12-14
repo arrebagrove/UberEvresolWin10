@@ -5,7 +5,8 @@
     xmlns:local="using:UberEversol"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Key="PivotHeader">
@@ -37,39 +38,29 @@
         </-->
         <SplitView Name="Split" PanePlacement="Left" OpenPaneLength="200" IsPaneOpen="true" DisplayMode="Inline">
             <SplitView.Pane>
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <!-- Menu (hamburger) button -->
+                    <RadioButton Click="OnMenuButtonClicked" />
 
-                    <SymbolIcon HorizontalAlignment="Left" Symbol="PhoneBook"/>
-                    <!--TextBlock Grid.Column="1" Text="Sessions" /-->
-                    <Button Grid.Column="1" Width="100" Content="Sessions" Click="Sessions_Click" />
+                    <!-- Home button -->
+                    <RadioButton Tag="" Content="Home" Checked="OnHomeButtonChecked" IsChecked="True" />
 
+                    <!-- Search button -->
+                    <RadioButton Tag="" Content="Search" Checked="OnSearchButtonChecked" />
 
-                    <SymbolIcon Grid.Row="2" HorizontalAlignment="Left" Symbol="Microphone" />
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="Recordings" />
+                    <!-- Settings button -->
+                    <RadioButton Tag="" Content="Settings" Checked="OnSettingsButtonChecked" />
 
-                    <SymbolIcon Grid.Row="4" HorizontalAlignment="Left" Symbol="People" />
-                    <TextBlock Grid.Column="1" Grid.Row="4" Text="People" />
+                    <!-- About button -->
+                    <RadioButton Tag="" Content="About" Checked="OnAboutButtonChecked" />
 
                     <Line Grid.Row="6" Fill="Gray"></Line>
-                    
-                    <SymbolIcon Grid.Row="7" HorizontalAlignment="Left" Symbol="Setting" />
-                    <TextBlock Grid.Column="1" Grid.Row="6" Text="Settings" />
-                </Grid>
+
+                </StackPanel>
+                <!--</Grid>-->
             </SplitView.Pane>
-            <Grid>
+            <SplitView.Content>
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*"  />
@@ -80,11 +71,34 @@
                         <Rectangle Margin="0,5" Height="3" Width="20" Fill="Black" />
                         <Rectangle Height="3" Width="20" Fill="Black" />
                     </StackPanel>
-                </Button>
+                </Button>-->
 
-                <TextBlock Margin="10" Grid.Row="1" Text="Main content here" />
+                <StackPanel VerticalAlignment="Stretch">
+                    <TextBlock Margin="10" Grid.Row="1" Text="Main content here" />
+                    <!-- List section goes here-->
+                    <!-- Input Text boxes for session object-->
+                    <DatePicker Name="dpDate" Header="Session Date" />
+                    <TextBlock Text="Title"/>
+                    <TextBox Name="txtTitle" Margin="5"></TextBox>
+                    <TextBlock Text="Description" />
+                    <TextBox Name="txtDesc" Margin="5"></TextBox>
+                    <Button Click="Add_Click">Add</Button>
 
-            </Grid>
+                    <!-- List view for sessions-->
+                    <ListView x:Name="session_list" SelectionChanged="session_list_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <!--<TextBlock Text="{Binding id}" />-->
+                                <!--<TextBlock Text="{Binding date}" />-->
+                                <TextBlock x:Name="lblTitle" Text="{Binding Title}" HorizontalAlignment="Right" />
+                                <!--<TextBlock Text="{Binding description}" />-->
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button x:Name="btnRemove" Click="remove_click" IsEnabled="False">Remove</Button>
+                </StackPanel>
+            </SplitView.Content>
+            <!--</Grid>-->
         </SplitView>
     </Grid>
     

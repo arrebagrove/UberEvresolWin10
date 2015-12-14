@@ -99,6 +99,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\DBHandler.cs" />
+    <Compile Include="Migrations\20151211052332_MyFirstMigration.cs" />
+    <Compile Include="Migrations\20151211052332_MyFirstMigration.designer.cs">
+      <DependentUpon>20151211052332_MyFirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\MediaType.cs" />
     <Compile Include="Models\Track.cs" />
@@ -106,7 +112,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

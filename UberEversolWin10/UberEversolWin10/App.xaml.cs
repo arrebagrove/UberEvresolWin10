@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Data.Entity;
 
 namespace UberEversol
 {
@@ -33,6 +34,12 @@ namespace UberEversol
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            /// Migrates the database to the device
+            using (var db = new UberEversolContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         /// <summary>
