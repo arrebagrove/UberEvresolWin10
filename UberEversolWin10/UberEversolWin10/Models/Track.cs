@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ using UberEversol.Models;
 
 namespace UberEversol.Models
 {
-    class Track
+    public class Track
     {
-        protected int id;
+        protected int id { get; set; }
         protected Session session;
 
         protected int index;

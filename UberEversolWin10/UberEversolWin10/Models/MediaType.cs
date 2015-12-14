@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
 
-namespace UberEversol.Entities
+namespace UberEversol.Models
 {
-    class MediaType
+    public class MediaType
     {
+        public int id { get; set; }
     }
 }

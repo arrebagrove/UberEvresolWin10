@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UberEversol.Models
 {
-    class Session
+    public class Session
     {
-        protected int id;
-        protected DateTime date;
-        protected string title;
-        protected string description;
-        protected string folderDir;
+        public int id;
+        public DateTime date;
+        public string title;
+        public string description;
+        public string folderDir;
 
-        protected List<Subject> people = new List<Subject>();
+        protected List<Track> tracks = new List<Track>();
+
+        public Session() { }
 
         // Default Constructor
-        public Session()
+        public Session(int id)
         {
-
+            this.id = id;
+            this.date = DateTime.Now;
+            this.title = null;
+            this.description = null;
+            this.folderDir = null;
         }
 
         // Constructor with now as date, title, desc
@@ -80,6 +87,11 @@ namespace UberEversol.Models
         {
             get { return this.folderDir; }
             set { this.folderDir = value; }
+        }
+
+        public void getFromDb(int id)
+        {
+            // Populate object with data from database
         }
     }
 }
