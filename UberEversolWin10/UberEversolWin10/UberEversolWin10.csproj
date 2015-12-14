@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\DBHandler.cs" />
+    <Compile Include="DateToStringConverter.cs" />
     <Compile Include="Migrations\20151211052332_MyFirstMigration.cs" />
     <Compile Include="Migrations\20151211052332_MyFirstMigration.designer.cs">
       <DependentUpon>20151211052332_MyFirstMigration.cs</DependentUpon>

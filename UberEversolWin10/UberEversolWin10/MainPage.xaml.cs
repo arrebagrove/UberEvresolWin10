@@ -43,7 +43,8 @@ namespace UberEversol
         {
             using (var db = new UberEversolContext())
             {
-                var s = new Session(txtTitle.Text, txtDesc.Text);
+                Session s = new Session(dpDate.Date.DateTime, txtTitle.Text, txtDesc.Text);
+
                 db.Sessions.Add(s);
                 db.SaveChanges();
 
@@ -52,14 +53,31 @@ namespace UberEversol
             }
         }
 
+        /// List button Edit
+        private void edit_click(object sender, RoutedEventArgs e)
+        {
+            Session lvi = (Session)session_list.SelectedItem;
+            using (var db = new UberEversolContext())
+            {
+                //var s = new Session(txtTitle.Text, txtDesc.Text);
+                //var title = lvi.Title;
+                //db.Sessions.Remove(lvi);
+                //db.SaveChanges();
+
+                //// Update the session list
+                //session_list.ItemsSource = db.Sessions.ToList();
+            }
+        }
+
         /// List button Remove
         private void remove_click(object sender, RoutedEventArgs e)
         {
-            ListViewItem lvi = (ListViewItem)session_list.SelectedItem;
+            Session lvi = (Session)session_list.SelectedItem;
             using (var db = new UberEversolContext())
             {
                 var s = new Session(txtTitle.Text, txtDesc.Text);
-                db.Sessions.Remove(lvi.item);
+                var title = lvi.Title;
+                db.Sessions.Remove(lvi);
                 db.SaveChanges();
 
                 // Update the session list
@@ -106,18 +124,18 @@ namespace UberEversol
         private async void session_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnRemove.IsEnabled = true;
-            MessageDialog dialog;
-            ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
-            if (itemId != null)
-            {
-                dialog = new MessageDialog(itemId.ToString());
-            }
-            else
-            {
-                dialog = new MessageDialog("Item Selected");
-            }
+            //MessageDialog dialog;
+            //ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
+            //if (itemId != null)
+            //{
+            //    dialog = new MessageDialog(itemId.ToString());
+            //}
+            //else
+            //{
+            //    dialog = new MessageDialog("Item Selected");
+            //}
 
-            await dialog.ShowAsync();
+            //await dialog.ShowAsync();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

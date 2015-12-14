@@ -9,6 +9,7 @@
     Loaded="Page_Loaded">
 
     <Page.Resources>
+        <local:DateToStringConverter x:Key="StringFormatConverter" />
         <DataTemplate x:Key="PivotHeader">
             <StackPanel>
                 <TextBlock FontSize="18" Foreground="Blue" Text="{Binding}" />
@@ -88,13 +89,24 @@
                     <ListView x:Name="session_list" SelectionChanged="session_list_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <!--<TextBlock Text="{Binding id}" />-->
-                                <!--<TextBlock Text="{Binding date}" />-->
-                                <TextBlock x:Name="lblTitle" Text="{Binding Title}" HorizontalAlignment="Right" />
-                                <!--<TextBlock Text="{Binding description}" />-->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="250" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="*"  />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Id}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />
+                                    <TextBlock x:Name="lblTitle" Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Right" />
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <Button x:Name="btnEdit" Click="edit_click" IsEnabled="False">Edit</Button>
                     <Button x:Name="btnRemove" Click="remove_click" IsEnabled="False">Remove</Button>
                 </StackPanel>
             </SplitView.Content>
@@ -103,3 +115,5 @@
     </Grid>
     
 </Page>
+
+    
