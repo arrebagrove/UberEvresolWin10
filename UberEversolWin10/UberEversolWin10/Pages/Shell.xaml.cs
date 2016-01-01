@@ -99,9 +99,9 @@ namespace UberEversol.Pages
         {
             var frame = this.DataContext as Frame;
             Page page = frame?.Content as Page;
-            if (page?.GetType() != typeof(PeopleList))
+            if (page?.GetType() != typeof(SubjectList))
             {
-                frame.Navigate(typeof(PeopleList));
+                frame.Navigate(typeof(SubjectList));
             }
         }
 

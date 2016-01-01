@@ -93,5 +93,10 @@ namespace UberEversol.Models
         {
             // Populate object with data from database
         }
+
+        public void SaveToDB()
+        {
+            // Execute the database save command
+        }
     }
 }

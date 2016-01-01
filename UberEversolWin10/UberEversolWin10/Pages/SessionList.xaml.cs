@@ -38,31 +38,71 @@ namespace UberEversol.Pages
             }
         }
 
-        private async void session_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void session_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //btnRemove.IsEnabled = true;
-            MessageDialog dialog;
-            ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
-            if (itemId != null)
-            {
-                dialog = new MessageDialog(itemId.ToString());
-            }
-            else
-            {
-                dialog = new MessageDialog("Item Selected");
-            }
-
-            await dialog.ShowAsync();
+            //MessageDialog dialog;
+            //ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
+            //if (itemId != null)
+            //{
+            //    dialog = new MessageDialog(itemId.ToString());
+            //}
+            //else
+            //{
+            //    dialog = new MessageDialog("Item Selected");
+            //}
         }
 
         private void btnNewSession_Click(object sender, RoutedEventArgs e)
         {
-
+            var frame = this.DataContext as Frame;
+            Page page = frame?.Content as Page;
+            if (page?.GetType() != typeof(SessionEdit))
+            {
+                frame.Navigate(typeof(SessionEdit));
+            }
         }
 
         private void btnRemoveSession_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Open a Session live recording
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSessionLive_Click(object sender, RoutedEventArgs e)
+        {
+            var frame = this.DataContext as Frame;
+            Page page = frame?.Content as Page;
+            if (page?.GetType() != typeof(SessionLive))
+            {
+                if (session_list.SelectedIndex >= 0)
+                {
+                    int selId = ((Session)session_list.SelectedItem).id;
+
+                    // Open the session live and pass the Id in to the frame
+                    frame.Navigate(typeof(SessionLive), selId);
+                }
+            }
+        }
+
+        private void session_list_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var frame = this.DataContext as Frame;
+            Page page = frame?.Content as Page;
+            if (page?.GetType() != typeof(SessionLive))
+            {
+                if (session_list.SelectedIndex >= 0)
+                {
+                    int selId = ((Session)session_list.SelectedItem).id;
+
+                    // Open the session live and pass the Id in to the frame
+                    frame.Navigate(typeof(SessionLive), selId);
+                }
+            }
         }
     }
 }

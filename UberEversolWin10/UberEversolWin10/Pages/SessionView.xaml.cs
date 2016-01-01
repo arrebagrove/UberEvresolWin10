@@ -22,9 +22,9 @@ namespace UberEversol.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SessionDetail : Page
+    public sealed partial class SessionView : Page
     {
-        public SessionDetail()
+        public SessionView()
         {
             this.InitializeComponent();
         }
@@ -68,6 +68,7 @@ namespace UberEversol.Pages
                 //// Update the session list
                 //session_list.ItemsSource = db.Sessions.ToList();
             }
+
         }
 
         /// List button Remove

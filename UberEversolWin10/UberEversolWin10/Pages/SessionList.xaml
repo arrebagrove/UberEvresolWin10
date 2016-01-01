@@ -12,20 +12,20 @@
         <!--local:DateToStringConverter x:Key="StringFormatConverter" /-->
     </Page.Resources>
     
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnNewSession" Grid.Column="1" Click="btnNewSession_Click" Tag="" Width="100">Add</Button>
+            <Button x:Name="btnNewSession" Grid.Column="1" Click="btnNewSession_Click" Tag="" Width="100">New</Button>
             <Button x:Name="btnRemoveSession" Grid.Column="2" Click="btnRemoveSession_Click" Tag="" Width="100">Remove</Button>
         </Grid>
         <TextBlock Text="Sessions" FontSize="27" />
         <Grid>
             <!-- List view for sessions-->
-            <ListView x:Name="session_list" SelectionChanged="session_list_SelectionChanged">
+            <ListView x:Name="session_list" DoubleTapped="session_list_DoubleTapped" SelectionMode="Single">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <Grid>
@@ -47,10 +47,10 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="25" />
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="250" />
-                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition MinWidth="25" />
+                                <ColumnDefinition MinWidth="100" />
+                                <ColumnDefinition MinWidth="250" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50" />
@@ -61,6 +61,7 @@
                             <!--<TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />-->
                             <TextBlock x:Name="lblTitle" Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" />
                             <TextBlock x:Name="lblRecCount" Grid.Column="3" Text="#" HorizontalAlignment="Center" />
+                            <Button x:Name="btnSessionLive" Grid.Column="4" Content="Go Live" Click="btnSessionLive_Click" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -8,15 +8,28 @@
     mc:Ignorable="d">
 
 
-    <StackPanel VerticalAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock>Date</TextBlock>
-        <DatePicker x:Name="dtDate"/>
-        <TextBlock x:Name="txtTitle">Title</TextBlock>
-        <TextBlock x:Name="txtDescription">Description</TextBlock>
-        <TextBlock x:Name="txtFolder">Folder</TextBlock>
-        <Grid>
-            <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Column="0">Cancel</Button>
-            <Button x:Name="btnSave" Click="btnSave_Click" Grid.Column="1">Save</Button>
+    <StackPanel VerticalAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
+        <TextBlock Text="Session Edit" />
+        <DatePicker x:Name="dtDate" Header="Date" />
+        <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200" HorizontalAlignment="Left"></TextBox>
+        <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 PlaceholderText="Description" HorizontalAlignment="Left"
+                 MinWidth="300"></TextBox>
+        <TextBox x:Name="txtFolder" Header="Folder"  PlaceholderText="Folder" MinWidth="300" HorizontalAlignment="Left"></TextBox>
+            
+        <Grid Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition MinWidth="50" />
+                <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            
+            <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Column="1" Margin="10">Cancel</Button>
+            <Button x:Name="btnSave" Click="btnSave_Click" Grid.Column="2" Margin="10">Save</Button>
         </Grid>
     </StackPanel>
 </Page>
