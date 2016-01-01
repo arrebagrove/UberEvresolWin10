@@ -5,113 +5,98 @@
     xmlns:local="using:UberEversol"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    mc:Ignorable="d">
+    <!--Loaded="Page_Loaded">-->
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <local:DateToStringConverter x:Key="StringFormatConverter" />
-        <DataTemplate x:Key="PivotHeader">
-            <StackPanel>
-                <TextBlock FontSize="18" Foreground="Blue" Text="{Binding}" />
-            </StackPanel>
-        </DataTemplate>
-    </Page.Resources>
+        <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="52" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style x:Key="SubTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="Margin" Value="15" />
+        </Style>
+    </Page.Resources>-->
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <!--Pivot HeaderTemplate="{StaticResource PivotHeader}" Name="Pivot1" Title="Pivot Sample">
-            <Pivot.Items>
-                <PivotItem Header="Sessions">
-                    <Grid>
-                        <TextBlock Text="This is pivot 1" />
-                    </Grid>
-                </PivotItem>
-                <PivotItem Header="Recordings">
-                    <Grid>
-                        <TextBlock Text="This is pivot 2" />
-                    </Grid>
-                </PivotItem>
-                <PivotItem Header="People">
-                    <Grid>
-                        <TextBlock Text="This is pivot 3" />
-                    </Grid>
-                </PivotItem>
-            </Pivot.Items>
-        </-->
-        <SplitView Name="Split" PanePlacement="Left" OpenPaneLength="200" IsPaneOpen="true" DisplayMode="Inline">
+
+        <!--<SplitView Name="mainSplitView" PanePlacement="Left" OpenPaneLength="200" IsPaneOpen="False" 
+                   DisplayMode="Inline" CompactPaneLength="50">
             <SplitView.Pane>
                 <StackPanel>
-                    <!-- Menu (hamburger) button -->
+                    --><!-- Menu (hamburger) button --><!--
                     <RadioButton Click="OnMenuButtonClicked" />
 
-                    <!-- Home button -->
+                    --><!-- Home button --><!--
                     <RadioButton Tag="" Content="Home" Checked="OnHomeButtonChecked" IsChecked="True" />
 
-                    <!-- Search button -->
+                    --><!-- Search button --><!--
                     <RadioButton Tag="" Content="Search" Checked="OnSearchButtonChecked" />
 
-                    <!-- Settings button -->
-                    <RadioButton Tag="" Content="Settings" Checked="OnSettingsButtonChecked" />
-
-                    <!-- About button -->
-                    <RadioButton Tag="" Content="About" Checked="OnAboutButtonChecked" />
-
+                    --><!-- Sessions list button--><!--
+                    <RadioButton Tag="" Content="SessionList" Checked="OnSessionButtonChecked" />
+                    
                     <Line Grid.Row="6" Fill="Gray"></Line>
 
-                </StackPanel>
-                <!--</Grid>-->
+                    --><!-- Settings button --><!--
+                    <RadioButton Tag="" Content="Settings" Checked="OnSettingsButtonChecked" />
+
+                    --><!-- About button --><!--
+                    <RadioButton Tag="" Content="About" Checked="OnAboutButtonChecked" />
+                    
+            </StackPanel>
             </SplitView.Pane>
             <SplitView.Content>
-            <!--<Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="*"  />
-                </Grid.RowDefinitions>
-                <Button Background="White" Click="Button_Click">
-                    <StackPanel>
-                        <Rectangle Height="3" Width="20" Fill="Black" />
-                        <Rectangle Margin="0,5" Height="3" Width="20" Fill="Black" />
-                        <Rectangle Height="3" Width="20" Fill="Black" />
-                    </StackPanel>
-                </Button>-->
-
+                
                 <StackPanel VerticalAlignment="Stretch">
-                    <TextBlock Margin="10" Grid.Row="1" Text="Main content here" />
-                    <!-- List section goes here-->
-                    <!-- Input Text boxes for session object-->
-                    <DatePicker Name="dpDate" Header="Session Date" />
-                    <TextBlock Text="Title"/>
-                    <TextBox Name="txtTitle" Margin="5"></TextBox>
-                    <TextBlock Text="Description" />
-                    <TextBox Name="txtDesc" Margin="5"></TextBox>
-                    <Button Click="Add_Click">Add</Button>
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
+                    Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click_1"/>
+                <Grid Height="175" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <TextBlock Margin="10" Text="UberEverSol" Style="{StaticResource HeaderTextBlockStyle}" />
+                </Grid>
 
-                    <!-- List view for sessions-->
+                    --><!-- 3 Options Section --><!--
+                <Grid Height="150" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" BorderBrush="Gray" BorderThickness="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Option 1" Grid.Column="0"/>
+                        <TextBlock Text="Option 2" Grid.Column="1"/>
+                        <TextBlock Text="Option 3" Grid.Column="2"/>
+                    </Grid>
+
+                    <TextBlock Text="Recent Sessions..." Style="{StaticResource SubTitleTextBlockStyle}"/>
+                    
+                    --><!-- List view for sessions--><!--
                     <ListView x:Name="session_list" SelectionChanged="session_list_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="25" />
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="250" />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="450" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="50" />
                                         <RowDefinition Height="*"  />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Id}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />
-                                    <TextBlock x:Name="lblTitle" Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Right" />
+                                    <TextBlock Grid.Column="0" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />
+                                    <TextBlock x:Name="lblTitle" Grid.Column="1" Text="{Binding Title}" HorizontalAlignment="Right" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button x:Name="btnEdit" Click="edit_click" IsEnabled="False">Edit</Button>
-                    <Button x:Name="btnRemove" Click="remove_click" IsEnabled="False">Remove</Button>
                 </StackPanel>
             </SplitView.Content>
-            <!--</Grid>-->
-        </SplitView>
+        </SplitView>-->
     </Grid>
     
 </Page>

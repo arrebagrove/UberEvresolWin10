@@ -30,117 +30,102 @@ namespace UberEversol
         }
 
         /// For list view
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            using (var db = new UberEversolContext())
-            {
-                session_list.ItemsSource = db.Sessions.ToList();
-            }
-        }
+        //private void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    using (var db = new UberEversolContext())
+        //    {
+        //        session_list.ItemsSource = db.Sessions.ToList();
+        //    }
+        //}
 
-        /// List button Add
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            using (var db = new UberEversolContext())
-            {
-                Session s = new Session(dpDate.Date.DateTime, txtTitle.Text, txtDesc.Text);
+        ///// List button Edit
+        //private void edit_click(object sender, RoutedEventArgs e)
+        //{
+        //    Session lvi = (Session)session_list.SelectedItem;
+        //    using (var db = new UberEversolContext())
+        //    {
+        //        //var s = new Session(txtTitle.Text, txtDesc.Text);
+        //        //var title = lvi.Title;
+        //        //db.Sessions.Remove(lvi);
+        //        //db.SaveChanges();
 
-                db.Sessions.Add(s);
-                db.SaveChanges();
+        //        //// Update the session list
+        //        //session_list.ItemsSource = db.Sessions.ToList();
+        //    }
+        //}
 
-                // Update the session list
-                session_list.ItemsSource = db.Sessions.ToList();
-            }
-        }
+        //private void HamburgerButton_Click(object sender, RoutedEvent e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-        /// List button Edit
-        private void edit_click(object sender, RoutedEventArgs e)
-        {
-            Session lvi = (Session)session_list.SelectedItem;
-            using (var db = new UberEversolContext())
-            {
-                //var s = new Session(txtTitle.Text, txtDesc.Text);
-                //var title = lvi.Title;
-                //db.Sessions.Remove(lvi);
-                //db.SaveChanges();
+        //// Toggle Side Pane
+        //private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-                //// Update the session list
-                //session_list.ItemsSource = db.Sessions.ToList();
-            }
-        }
+        //// Go to Home Page
+        //private void OnHomeButtonChecked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-        /// List button Remove
-        private void remove_click(object sender, RoutedEventArgs e)
-        {
-            Session lvi = (Session)session_list.SelectedItem;
-            using (var db = new UberEversolContext())
-            {
-                var s = new Session(txtTitle.Text, txtDesc.Text);
-                var title = lvi.Title;
-                db.Sessions.Remove(lvi);
-                db.SaveChanges();
+        //// Open Search Page
+        //private void OnSearchButtonChecked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-                // Update the session list
-                session_list.ItemsSource = db.Sessions.ToList();
-            }
-        }
+        //// Open Session Page
+        //private void OnSessionButtonChecked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-        // Toggle Side Pane
-        private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
+        //// Open Settings Page
+        //private void OnSettingsButtonChecked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
-        // Go to Home Page
-        private void OnHomeButtonChecked(object sender, RoutedEventArgs e)
-        {
-            Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
-
-        // Open Search Page
-        private void OnSearchButtonChecked(object sender, RoutedEventArgs e)
-        {
-            Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
-
-        // Open Settings Page
-        private void OnSettingsButtonChecked(object sender, RoutedEventArgs e)
-        {
-            Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
-
-        // Open About Page
-        private void OnAboutButtonChecked(object sender, RoutedEventArgs e)
-        {
-            Split.IsPaneOpen = !Split.IsPaneOpen;
-        }
+        //// Open About Page
+        //private void OnAboutButtonChecked(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
 
 
         private void Sessions_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Sessions));
+            Frame.Navigate(typeof(Session));
         }
 
         private async void session_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnRemove.IsEnabled = true;
-            //MessageDialog dialog;
-            //ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
-            //if (itemId != null)
-            //{
-            //    dialog = new MessageDialog(itemId.ToString());
-            //}
-            //else
-            //{
-            //    dialog = new MessageDialog("Item Selected");
-            //}
+            //btnRemove.IsEnabled = true;
+            MessageDialog dialog;
+            ListViewItem itemId = ((sender as ListView).SelectedItem as ListViewItem);
+            if (itemId != null)
+            {
+                dialog = new MessageDialog(itemId.ToString());
+            }
+            else
+            {
+                dialog = new MessageDialog("Item Selected");
+            }
 
-            //await dialog.ShowAsync();
+            await dialog.ShowAsync();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+        //private void HamburgerButton_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    mainSplitView.IsPaneOpen = !mainSplitView.IsPaneOpen;
+        //}
     }
 }
