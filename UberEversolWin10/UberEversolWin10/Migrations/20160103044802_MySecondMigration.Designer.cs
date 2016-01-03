@@ -8,9 +8,10 @@ using UberEversol;
 namespace UberEversol.Migrations
 {
     [DbContext(typeof(UberEversolContext))]
-    partial class UberEversolContextModelSnapshot : ModelSnapshot
+    [Migration("20160103044802_MySecondMigration")]
+    partial class MySecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");

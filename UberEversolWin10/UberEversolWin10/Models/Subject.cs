@@ -13,6 +13,8 @@ namespace UberEversol
         protected string first_name;
         protected string last_name;
         protected string full_name;
+        protected DateTime created;
+        protected int hit_count;
         //protected file image;     // Image of the subject
 
 
@@ -101,5 +103,67 @@ namespace UberEversol
             set { this.full_name = value; }
         }
 
+        /// <summary>
+        /// Created Date Getter / Setter
+        /// </summary>
+        public DateTime Created
+        {
+            get { return this.created; }
+            set { this.created = value; }
+        }
+
+        /// <summary>
+        /// Rating Getter / Setter
+        /// </summary>
+        public int Rating
+        {
+            get { return this.hit_count; }
+            set { this.hit_count = value; }
+        }
+
+        /// <summary>
+        /// Save the object to the database
+        /// </summary>
+        public void DBSave()
+        {
+            using (var db = new UberEversolContext())
+            {
+                db.Subjects.Add(this);
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        ///  Get the Subject from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A subject from database</returns>
+        public Subject DBGet(int id)
+        {
+            using (var db = new UberEversolContext())
+            {
+                Subject sub = (from s in db.Subjects
+                                  where s.Id == id
+                                  select s).First();
+
+                if (sub != null)
+                    return sub;
+                else
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Remove the selected 
+        /// </summary>
+        /// <param name="id"></param>
+        public void DBRemove()
+        {
+            using (var db = new UberEversolContext())
+            {
+                db.Subjects.Remove(this);
+                db.SaveChanges();
+            }
+        }
     }
 }
