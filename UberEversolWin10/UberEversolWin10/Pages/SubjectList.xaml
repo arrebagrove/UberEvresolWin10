@@ -7,7 +7,66 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
         <TextBlock FontSize="50">Subject List</TextBlock>
-    </Grid>
+        <CommandBar>
+            <AppBarButton x:Name="AppBtnNew" Icon="Add" Label="New" Click="AppBtnNew_Click"/>
+            <AppBarButton x:Name="AppBtnDelete" Icon="Remove" Label="Delete" Click="AppBtnDelete_Click"/>
+            <AppBarButton x:Name="AppBtnEdit" Icon="Edit" Label="Edit" Click="AppBtnEdit_Click" Visibility="Collapsed"/>
+        </CommandBar>
+        <ListView x:Name="subject_list" SelectionMode="Single" CanReorderItems="True"
+                  DoubleTapped="subject_list_DoubleTapped"
+                  SelectionChanged="subject_list_SelectionChanged">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <!-- ID -->
+                            <ColumnDefinition Width="50" />
+                            <!-- Image -->
+                            <ColumnDefinition Width="200" />
+                            <!-- First Name-->
+                            <ColumnDefinition Width="200" />
+                            <!-- Last Name-->
+                            <ColumnDefinition Width="400" />
+                            <!-- Full Name-->
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Text="Image" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="2" Text="First Name" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="3" Text="Last Name" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="4" Text="Full Name" HorizontalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <!-- ID -->
+                            <ColumnDefinition Width="50" />
+                            <!-- Image -->
+                            <ColumnDefinition Width="200" />
+                            <!-- First Name-->
+                            <ColumnDefinition Width="200" />
+                            <!-- Last Name-->
+                            <ColumnDefinition Width="400" />
+                            <!-- Full Name-->
+                        </Grid.ColumnDefinitions>
+                        <!--<Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="*"  />
+                        </Grid.RowDefinitions>-->
+                        <TextBlock x:Name="txtId" Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center" />
+                        <SymbolIcon x:Name="imgAvatar" Grid.Column="1" Symbol="Contact" Margin="12,0,12,0"/>
+                        <TextBlock x:Name="txtFName" Grid.Column="2" Text="{Binding FirstName}" HorizontalAlignment="Left" />
+                        <TextBlock x:Name="txtLName" Grid.Column="3" Text="{Binding LastName}" HorizontalAlignment="Left" />
+                        <TextBlock x:Name="FullName" Grid.Column="4" Text="{Binding FullName}" HorizontalAlignment="Left" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </Page>

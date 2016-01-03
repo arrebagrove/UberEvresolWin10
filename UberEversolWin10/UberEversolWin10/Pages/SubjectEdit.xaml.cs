@@ -22,9 +22,67 @@ namespace UberEversol.Pages
     /// </summary>
     public sealed partial class SubjectEdit : Page
     {
+        Subject person = new Subject();
+        private int sId = 0;
+
         public SubjectEdit()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// When navigated to from another frame
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null)
+                sId = int.Parse(e.Parameter.ToString());
+
+            person = person.DBGet(sId);    // Load the session object
+            lblTitle.Text = lblTitle.Text + " - " + sId.ToString();
+
+            if (person != null)
+            {
+                txtFirstName.Text = person.FirstName.ToString();
+                txtLastName.Text = person.LastName.ToString();
+                txtFullName.Text = person.FullName.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Save Subject Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                person = new Subject(txtFirstName.Text, txtLastName.Text, txtFullName.Text);
+                person.DBSave();
+            }
+            catch(InvalidDataException exc)
+            {
+                lblNotify.Text = "Error! " + exc.Message;
+                lblNotify.Visibility = Visibility.Visible;
+            }
+
+            lblNotify.Text = "Subject Saved!";
+            lblNotify.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Cancel Click Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
         }
     }
 }

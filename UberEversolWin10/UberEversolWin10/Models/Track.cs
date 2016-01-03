@@ -129,5 +129,17 @@ namespace UberEversol.Models
                 this.keywords.Add(w);
             }
         }
+
+        /// <summary>
+        /// Save the object to the database
+        /// </summary>
+        public void DBSave()
+        {
+            using (var db = new UberEversolContext())
+            {
+                db.Track.Add(this);
+                db.SaveChanges();
+            }
+        }
     }
 }

@@ -104,6 +104,10 @@
     <Compile Include="Migrations\20151211052332_MyFirstMigration.designer.cs">
       <DependentUpon>20151211052332_MyFirstMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20160103044802_MySecondMigration.cs" />
+    <Compile Include="Migrations\20160103044802_MySecondMigration.designer.cs">
+      <DependentUpon>20160103044802_MySecondMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Models\Group.cs" />

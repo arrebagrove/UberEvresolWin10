@@ -7,7 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Subject View" FontSize="42" />
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Name="lblTitle" Text="Subject View" FontSize="42" />
+        <TextBlock x:Name="lblNotify" FontSize="18" Visibility="Collapsed" />
+        <TextBox x:Name="txtFirstName" MaxWidth="200" Header="First Name" />
+        <TextBox x:Name="txtLastName" MaxWidth="200" Header="Last Name" />
+        <TextBox x:Name="txtFullName" MaxWidth="400" Header="Full Name" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnClose" Content="Close" Grid.Column="0" Click="btnClose_Click"/>
+        </Grid>
+    </StackPanel>
 </Page>

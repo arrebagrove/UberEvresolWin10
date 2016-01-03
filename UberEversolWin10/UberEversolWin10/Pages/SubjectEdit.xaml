@@ -7,7 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Subject Edit" FontSize="42" />
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
+        <TextBlock x:Name="lblTitle" Text="Subject Edit" FontSize="42" />
+        <TextBlock x:Name="lblNotify" FontSize="18" Visibility="Collapsed" HorizontalAlignment="Center" />
+        <TextBox x:Name="txtFirstName" MinWidth="200" Header="First Name" HorizontalAlignment="Left" />
+        <TextBox x:Name="txtLastName" MinWidth="200" Header="Last Name" HorizontalAlignment="Left" />
+        <TextBox x:Name="txtFullName" MinWidth="400" Header="Full Name" HorizontalAlignment="Left" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnCancel" Content="Cancel" Grid.Column="0" Click="btnCancel_Click"/>
+            <Button x:Name="btnSave" Content="Save" Grid.Column="1" Click="btnSave_Click"/>
+        </Grid>
+    </StackPanel>
 </Page>
