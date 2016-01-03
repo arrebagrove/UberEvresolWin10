@@ -29,7 +29,11 @@ namespace UberEversol.Pages
             this.InitializeComponent();
         }
 
-        /// For list view
+        /// <summary>
+        /// Page Load Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             using (var db = new UberEversolContext())
@@ -89,6 +93,11 @@ namespace UberEversol.Pages
             }
         }
 
+        /// <summary>
+        /// Double Click event for list view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void session_list_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             var frame = this.DataContext as Frame;

@@ -23,12 +23,34 @@ namespace UberEversol.Pages
     /// </summary>
     public sealed partial class SessionEdit : Page
     {
-        public Session sessionObj;
+        private Session selSession = new Session();
+        private int sessionId = 0;
 
         public SessionEdit()
         {
             this.InitializeComponent();
             // Load the given session
+        }
+
+        /// <summary>
+        /// When navigated to from another frame
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null)
+                sessionId = int.Parse(e.Parameter.ToString());
+
+            selSession = selSession.DBGet(sessionId);    // Load the session object
+            lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();
+
+            if (selSession != null)
+            {
+                dtDate.Date = selSession.Date;
+                txtTitle.Text = selSession.Title.ToString();
+                txtDescription.Text = selSession.Description.ToString();
+                txtFolder.Text = selSession.FolderDirectory != null ? selSession.FolderDirectory.ToString() : "";
+            }
         }
 
         /// <summary>
@@ -49,7 +71,7 @@ namespace UberEversol.Pages
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             // Save the session
-            sessionObj.SaveToDB();
+            selSession.DBSave();
         }
     }
 }

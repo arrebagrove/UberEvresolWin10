@@ -89,14 +89,32 @@ namespace UberEversol.Models
             set { this.folderDir = value; }
         }
 
-        public void getFromDb(int id)
+        public Session DBGet(int id)
         {
             // Populate object with data from database
+            using (var db = new UberEversolContext())
+            {
+                Session ses = (from s in db.Sessions
+                               where s.Id == id
+                               select s).First();
+
+                if (ses != null)
+                    return ses;
+                else
+                    return null;
+            }
         }
 
-        public void SaveToDB()
+        /// <summary>
+        /// Save the object to the database
+        /// </summary>
+        public void DBSave()
         {
-            // Execute the database save command
+            using (var db = new UberEversolContext())
+            {
+                db.Sessions.Add(this);
+                db.SaveChanges();
+            }
         }
     }
 }

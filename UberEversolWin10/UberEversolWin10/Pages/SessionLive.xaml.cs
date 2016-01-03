@@ -64,20 +64,16 @@ namespace UberEversol.Pages
             if(e.Parameter != null)
                 sessionId = int.Parse(e.Parameter.ToString());
 
-            selSession.getFromDb(sessionId);    // Load the session object
+            selSession = selSession.DBGet(sessionId);    // Load the session object
 
             lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();
 
-            using (var db = new UberEversolContext())
+            if (selSession != null)
             {
-                var ses = (from s in db.Sessions
-                          where s.Id == sessionId
-                          select s).First();
-
-                txtDate.Text = ses.Date.ToString();
-                txtTitle.Text = ses.Title.ToString();
-                txtDescription.Text = ses.Description.ToString();
-                txtFolder.Text = ses.FolderDirectory != null? ses.FolderDirectory.ToString():"";
+                txtDate.Text = selSession.Date.ToString();
+                txtTitle.Text = selSession.Title.ToString();
+                txtDescription.Text = selSession.Description.ToString();
+                txtFolder.Text = selSession.FolderDirectory != null? selSession.FolderDirectory.ToString():"";
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
                 //lstTrack.ItemsSource = db.Track.Where(r => r.se = sessionId).ToList();

@@ -9,7 +9,7 @@
 
 
     <StackPanel VerticalAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
-        <TextBlock Text="Session Edit" />
+        <TextBlock x:Name="lblTitle" Text="Session Edit" />
         <DatePicker x:Name="dtDate" Header="Date" />
         <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200" HorizontalAlignment="Left"></TextBox>
         <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
@@ -25,7 +25,7 @@
                 <ColumnDefinition MinWidth="50" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             
             <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Column="1" Margin="10">Cancel</Button>
