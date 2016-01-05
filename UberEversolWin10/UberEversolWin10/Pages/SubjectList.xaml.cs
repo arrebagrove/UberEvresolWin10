@@ -80,6 +80,33 @@ namespace UberEversol.Pages
         }
 
         /// <summary>
+        /// Add a new Subject
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AppBtnNewSubject_Dialog_Click(object sender, RoutedEventArgs e)
+        {
+            cdNewSubject newSubjectDialog = new cdNewSubject();
+            await newSubjectDialog.ShowAsync();
+
+            if (newSubjectDialog.result == cdResult.AddSuccess)
+            {
+                // Add New was successful.
+                // Refresh the listview
+                using (var db = new UberEversolContext())
+                {
+                    subject_list.ItemsSource = db.Subjects.ToList();
+                }
+            }
+            else if (newSubjectDialog.result == cdResult.AddFail)
+            {
+                // Add failed.
+                // Prompt User
+            }
+
+        }
+
+        /// <summary>
         /// Remove Subject Button 
         /// </summary>
         /// <param name="sender"></param>

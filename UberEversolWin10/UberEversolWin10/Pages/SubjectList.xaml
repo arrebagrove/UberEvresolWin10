@@ -10,7 +10,7 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
         <TextBlock FontSize="50">Subject List</TextBlock>
         <CommandBar>
-            <AppBarButton x:Name="AppBtnNew" Icon="Add" Label="New" Click="AppBtnNew_Click"/>
+            <AppBarButton x:Name="AppBtnNew" Icon="Add" Label="New" Click="AppBtnNewSubject_Dialog_Click"/>
             <AppBarButton x:Name="AppBtnDelete" Icon="Remove" Label="Delete" Click="AppBtnDelete_Click"/>
             <AppBarButton x:Name="AppBtnEdit" Icon="Edit" Label="Edit" Click="AppBtnEdit_Click" Visibility="Collapsed"/>
         </CommandBar>
