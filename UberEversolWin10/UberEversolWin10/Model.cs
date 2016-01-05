@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using UberEversol.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using Windows.Storage;
 //using SQLite.Net.Attributes;
 
 namespace UberEversol.Model
@@ -17,10 +19,21 @@ namespace UberEversol.Model
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
+        public DbSet<MediaRequest> MediaRequest { get; set; }
+        public DbSet<Requestee> Requestors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Filename=UberEversol.db");
+            //optionsBuilder.UseSqlite($"Filename=UberEversol.db");
+
+            string databaseFilePath = "UberEversol.db";
+            try
+            {
+                databaseFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, databaseFilePath);
+            }
+            catch (InvalidOperationException) { }
+
+            optionsBuilder.UseSqlite($"Data source={databaseFilePath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

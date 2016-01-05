@@ -8,13 +8,40 @@ using UberEversol.Model;
 namespace UberEversol.Migrations
 {
     [DbContext(typeof(UberEversolContext))]
-    [Migration("20160105010617_thirdMigration")]
-    partial class thirdMigration
+    [Migration("20160105070658_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
+
+            modelBuilder.Entity("UberEversol.Model.MediaRequest", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("completed");
+
+                    b.Property<DateTime>("completed_date");
+
+                    b.Property<string>("email");
+
+                    b.Property<int?>("mediaid")
+                        .IsRequired();
+
+                    b.Property<string>("notes");
+
+                    b.Property<string>("phone")
+                        .IsRequired();
+
+                    b.Property<DateTime>("request_date");
+
+                    b.Property<int?>("requestorid")
+                        .IsRequired();
+
+                    b.HasKey("id");
+                });
 
             modelBuilder.Entity("UberEversol.Model.MediaType", b =>
                 {
@@ -27,6 +54,26 @@ namespace UberEversol.Migrations
 
                     b.Property<string>("title")
                         .IsRequired();
+
+                    b.HasKey("id");
+                });
+
+            modelBuilder.Entity("UberEversol.Model.Requestee", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<DateTime?>("dob");
+
+                    b.Property<string>("first_name")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("last_name")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 200);
 
                     b.HasKey("id");
                 });
@@ -87,6 +134,8 @@ namespace UberEversol.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("MediaRequestid");
+
                     b.Property<DateTime>("created_date");
 
                     b.Property<string>("description");
@@ -112,12 +161,15 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.Models.Group", b =>
+            modelBuilder.Entity("UberEversol.Model.MediaRequest", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
+                    b.HasOne("UberEversol.Model.MediaType")
+                        .WithMany()
+                        .HasForeignKey("mediaid");
 
-                    b.HasKey("id");
+                    b.HasOne("UberEversol.Model.Requestee")
+                        .WithMany()
+                        .HasForeignKey("requestorid");
                 });
 
             modelBuilder.Entity("UberEversol.Model.Subject", b =>
@@ -129,6 +181,10 @@ namespace UberEversol.Migrations
 
             modelBuilder.Entity("UberEversol.Model.Track", b =>
                 {
+                    b.HasOne("UberEversol.Model.MediaRequest")
+                        .WithMany()
+                        .HasForeignKey("MediaRequestid");
+
                     b.HasOne("UberEversol.Model.Session")
                         .WithMany()
                         .HasForeignKey("session_id");
