@@ -108,9 +108,12 @@
     <Compile Include="Migrations\20160103044802_MySecondMigration.designer.cs">
       <DependentUpon>20160103044802_MySecondMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20160105010617_thirdMigration.cs" />
+    <Compile Include="Migrations\20160105010617_thirdMigration.designer.cs">
+      <DependentUpon>20160105010617_thirdMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\MediaRequest.cs" />
     <Compile Include="Models\MediaType.cs" />
     <Compile Include="Models\Track.cs" />
