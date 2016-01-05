@@ -5,97 +5,83 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UberEversol.Models
+namespace UberEversol.Model
 {
-    public class Session
+    
+    public partial class Session
     {
-        public int id;
-        public DateTime date;
-        public string title;
-        public string description;
-        public string folderDir;
+        
 
-        protected List<Track> tracks = new List<Track>();
-
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public Session() { }
 
-        // Default Constructor
+        /// <summary>
+        /// Constructor with id
+        /// </summary>
+        /// <param name="id"></param>
         public Session(int id)
         {
             this.id = id;
-            this.date = DateTime.Now;
+            this.created = DateTime.Now;
             this.title = null;
             this.description = null;
             this.folderDir = null;
         }
 
-        // Constructor with now as date, title, desc
+        /// <summary>
+        /// Constructor with now as created, title, desc
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
         public Session(string title, string desc)
         {
-            this.date = new DateTime();
+            this.created = new DateTime();
             this.title = title;
             this.description = desc;
         }
 
-        // Constructor with custom date, title, desc
-        public Session(DateTime date, string title, string desc)
+        /// <summary>
+        /// Constructor with custom created, title, desc
+        /// </summary>
+        /// <param name="created"></param>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
+        public Session(DateTime created, string title, string desc)
         {
-            this.date = date;
+            this.created = created;
             this.title = title;
             this.description = desc;
         }
 
-        // Constructor with custom date, title, desc
-        public Session(int id, DateTime date, string title, string desc)
+        /// <summary>
+        /// Constructor with custom created, title, desc
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="created"></param>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
+        public Session(int id, DateTime created, string title, string desc)
         {
             this.id = id;
-            this.date = date;
+            this.created = created;
             this.title = title;
             this.description = desc;
         }
 
-        // This is the date getter/setter
-        public int Id
-        {
-            get { return this.id; }
-            set { this.id = value; }
-        }
-
-        // This is the date getter/setter
-        public DateTime Date
-        {
-            get { return this.date; }
-            set { this.date = value; }
-        }
-
-        // This is the title getter/setter
-        public string Title
-        {
-            get { return this.title; }
-            set { this.title = value; }
-        }
-
-        //  Description getter / setter
-        public string Description
-        {
-            get { return this.description; }
-            set { this.description = value; }
-        }
-
-        // Folder Dir getter / setter
-        public string FolderDirectory
-        {
-            get { return this.folderDir; }
-            set { this.folderDir = value; }
-        }
-
+        /// <summary>
+        /// Get Session record from database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Session DBGet(int id)
         {
             // Populate object with data from database
             using (var db = new UberEversolContext())
             {
                 Session ses = (from s in db.Sessions
-                               where s.Id == id
+                               where s.id == id
                                select s).First();
 
                 if (ses != null)
@@ -113,6 +99,40 @@ namespace UberEversol.Models
             using (var db = new UberEversolContext())
             {
                 db.Sessions.Add(this);
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Update the database with changes
+        /// </summary>
+        public void DBUpdate()
+        {
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Sessions.FirstOrDefault(s => s.id == this.id);
+                if (result != null)
+                {
+                    result.title = this.title;
+                    result.description= this.description;
+                    result.folderDir= this.folderDir;
+                    result.created = this.created;
+                    result.hit_count = this.hit_count;
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove the selected session from DB
+        /// </summary>
+        /// <param name="id"></param>
+        public void DBRemove()
+        {
+            using (var db = new UberEversolContext())
+            {
+                db.Sessions.Remove(this);
                 db.SaveChanges();
             }
         }

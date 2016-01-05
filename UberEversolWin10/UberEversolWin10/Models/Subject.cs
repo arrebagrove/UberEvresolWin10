@@ -5,18 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 
-namespace UberEversol
+namespace UberEversol.Model
 {
-    public class Subject
+    public partial class Subject
     {
-        protected int id = 0;
-        protected string first_name;
-        protected string last_name;
-        protected string full_name;
-        protected DateTime created;
-        protected int hit_count;
-        //protected file image;     // Image of the subject
-
+        
 
         /// <summary>
         /// Default Constructor
@@ -36,20 +29,6 @@ namespace UberEversol
         {
             this.first_name = fname;
             this.last_name = lname;
-            this.full_name = fname + " " + lname;
-        }
-
-        /// <summary>
-        /// Constructor with First Name, Last Name and Full Name
-        /// </summary>
-        /// <param name="fname">First Name</param>
-        /// <param name="lname">Last Name</param>
-        /// <param name="full">Full Name</param>
-        public Subject(string fname, string lname, string full)
-        {
-            this.first_name = fname;
-            this.last_name = lname;
-            this.full_name = full;
         }
 
         /// <summary>
@@ -60,65 +39,55 @@ namespace UberEversol
         {
             char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
 
-            this.full_name = full;
-
             string[] name = full.Split(delimiterChars); // Put all the names into an array
             this.first_name = name[0];
             this.last_name = name[1];
         }
 
+
         /// <summary>
-        /// Id Name Getter / Setter
+        /// Rating Increment
         /// </summary>
-        public int Id
+        public void RatingPlus()
         {
-            get { return this.id; }
-            set { this.id = value; }
+            this.user_rating += 1;
+
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Subjects.FirstOrDefault(s => s.id == this.id);
+                result.user_rating += 1;
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
-        /// First Name Getter / Setter
+        /// Rating Decrement
         /// </summary>
-        public string FirstName
+        public void RatingMinus()
         {
-            get { return this.first_name; }
-            set { this.first_name = value; }
+            this.user_rating -= 1;
+
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Subjects.FirstOrDefault(s => s.id == this.id);
+                result.user_rating -= 1;
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
-        /// Last Name Getter / Setter
+        /// Increment Hit Count
         /// </summary>
-        public string LastName
+        public void Hit()
         {
-            get { return this.last_name; }
-            set { this.last_name= value; }
-        }
+            this.hit_count += 1;
 
-        /// <summary>
-        /// Full Name Getter / Setter
-        /// </summary>
-        public string FullName
-        {
-            get { return this.full_name; }
-            set { this.full_name = value; }
-        }
-
-        /// <summary>
-        /// Created Date Getter / Setter
-        /// </summary>
-        public DateTime Created
-        {
-            get { return this.created; }
-            set { this.created = value; }
-        }
-
-        /// <summary>
-        /// Rating Getter / Setter
-        /// </summary>
-        public int Rating
-        {
-            get { return this.hit_count; }
-            set { this.hit_count = value; }
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Subjects.FirstOrDefault(s => s.id == this.id);
+                result.hit_count += 1;
+                db.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -134,27 +103,47 @@ namespace UberEversol
         }
 
         /// <summary>
+        /// Update the database with changes
+        /// </summary>
+        public void DBUpdate()
+        {
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Subjects.FirstOrDefault(s => s.id == this.id);
+                if (result != null)
+                {
+                    result.first_name = this.first_name;
+                    result.last_name = this.last_name;
+                    result.created = this.created;
+                    result.user_rating = this.user_rating;
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
         ///  Get the Subject from the database
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A subject from database</returns>
         public Subject DBGet(int id)
         {
-            using (var db = new UberEversolContext())
+            if (id > 0)
             {
-                Subject sub = (from s in db.Subjects
-                                  where s.Id == id
-                                  select s).First();
-
-                if (sub != null)
+                using (var db = new UberEversolContext())
+                {
+                    Subject sub = (from s in db.Subjects
+                                   where s.id == id
+                                   select s).First();
                     return sub;
-                else
-                    return null;
+                }
             }
+            return null;
         }
 
         /// <summary>
-        /// Remove the selected 
+        /// Remove the selected subject from db
         /// </summary>
         /// <param name="id"></param>
         public void DBRemove()

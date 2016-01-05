@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.Models;
+using UberEversol.Model;
 using Microsoft.Data.Entity;
 
-namespace UberEversol.Models
+namespace UberEversol.Model
 {
-    public class MediaRequest
+    public partial class MediaRequest
     {
-        public int id;
-        public string requestee;
-        public string email;
-        public string phone;
-        //public enum media {"};
-        private List<Track> tracks = new List<Track>();
+        public MediaRequest() { }
     }
 }

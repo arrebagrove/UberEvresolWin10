@@ -4,130 +4,96 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.Models;
+using UberEversol.Model;
 
-namespace UberEversol.Models
+namespace UberEversol.Model
 {
-    public class Track
+    public partial class Track
     {
-        protected int id { get; set; }
-        protected Session session;
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public Track() {}
 
-        protected int index;
-        protected string title;
-        protected string description;
-        protected TimeSpan duration;
-
-        protected string file_name;
-        protected int file_size;
-        protected string file_dir;
-
-        protected List<Subject> subjects = new List<Subject>(); // public virtual ICollection<Subject> subjects;
-        protected List<string> keywords = new List<string>();
-
-        // Default Constructor
-        public Track()
-        {
-
-        }
-
-        // Constructor with now as date, title, desc
+        /// <summary>
+        /// Constructor with now as date, title, desc
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
+        /// <param name="filePath"></param>
         public Track(string title, string desc, string filePath)
         {
-            //this.date = new DateTime();
+            this.created_date = DateTime.Now;
             this.title = title;
             this.description = desc;
         }
 
-        // Constructor with now as date, title, desc
-        /*public Track(string title, string desc, FileStream file)
-        {
-            //this.date = new DateTime();
-            this.title = title;
-            this.description = desc;
-        }*/
-
-        // Constructor with custom date, title, desc
+        /// <summary>
+        /// Constructor with custom date, title, desc
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
         public Track(DateTime date, string title, string desc)
         {
-            //this.date = date;
+            this.created_date = date;
             this.title = title;
             this.description = desc;
         }
 
-        // Constructor with custom date, title, desc
-        public Track(int id, DateTime date, string title, string desc)
+        /// <summary>
+        /// Constructor with custom date, title, desc
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="created"></param>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
+        public Track(int id, DateTime created, string title, string desc)
         {
             this.id = id;
-            //this.date = date;
+            this.created_date = created;
             this.title = title;
             this.description = desc;
         }
 
-
-        // Session getter/setter
-        public Session getSession() { return this.session; }
-        public void setSession(Session ses) { this.session = ses; }
-        public void setSession(int id) {
-            // get session from database
+        /// <summary>
+        /// Add subject to subject list
+        /// </summary>
+        /// <param name="person"></param>
+        public void appendSubjects(Subject person)
+        {
+           this.subjects.Add(person);
         }
 
-        // Index getter/setter
-        public int getIndex() { return this.index; }
-        public void setIndex(int indx) { this.index = indx; }
-
-        // Duration getter/setter
-        public TimeSpan getDuration() { return this.duration; }
-        public void setDuration(TimeSpan ts) { this.duration= ts; }
-
-        // Date getter/setter
-        public DateTime getDate() { return this.session.Date; }
-        //public void setDate(DateTime date) { this.date = date; }
-
-        // Title getter/setter
-        public string getTitle() { return this.title; }
-        public void setTitle(string title) { this.title = title; }
-
-        //  Description getter / setter
-        public string getDescription() { return this.description; }
-        public void setDescription(string desc) { this.description = desc; }
-
-
-
-        // File Name getter / setter
-        public string getFileName() { return this.file_name; }
-        public void setFileName(string fn) { this.file_name = fn; }
-
-        // File Name getter / setter
-        public int getFileSize() { return this.file_size; }
-        public void setFileSize(int fs) { this.file_size = fs; }
-
-        // File Dir getter / setter
-        public string getFolderDir() { return this.file_dir; }
-        public void setFolderDir(string dir) { this.file_dir = dir; }
-
-
-
-        // Subjects getter / setter
-        public List<Subject> getSubjects() { return this.subjects; }
-        public void setSubjects(List<Subject> s) { this.subjects = s; }
+        /// <summary>
+        /// Add list of subjects to subjects list list
+        /// </summary>
+        /// <param name="people"></param>
         public void appendSubjects(List<Subject> people)
         {
             foreach (Subject p in people)
             {
-                this.subjects.Add(p);
+               this.subjects.Add(p);
             }
         }
 
-        // Keywords getter / setter
-        public List<string> getKeywords() { return this.keywords; }
-        public void setKeywords(List<string> kw) { this.keywords = kw; }
+        /// <summary>
+        /// Append word to keywords list
+        /// </summary>
+        /// <param name="kw"></param>
+        public void appendKeyword(string kw)
+        {
+           this.keywords += ", " + kw;
+        }
+
+        /// <summary>
+        /// Append list of words to keywords list
+        /// </summary>
+        /// <param name="kw"></param>
         public void appendKeywords(List<string> kw)
         {
-            foreach (string w in kw)
-            {
-                this.keywords.Add(w);
-            }
+            string delimeter = ",";
+            this.keywords += kw.Aggregate((i, j) => i + delimeter + j);
         }
 
         /// <summary>
@@ -137,7 +103,67 @@ namespace UberEversol.Models
         {
             using (var db = new UberEversolContext())
             {
-                db.Track.Add(this);
+                db.Tracks.Add(this);
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Update the database with changes
+        /// </summary>
+        public void DBUpdate()
+        {
+            using (var db = new UberEversolContext())
+            {
+                var result = db.Tracks.FirstOrDefault(t => t.id == this.id);
+                if (result != null)
+                {
+                    result.id = this.id;
+                    result.session_id = this.session_id;
+                    result.title = this.title;
+                    result.description = this.description;
+                    result.duration = this.duration;
+                    result.file_name = this.file_name;
+                    result.file_dir = this.file_dir;
+                    result.file_size = this.file_size;
+
+                    result.subjects = this.subjects;
+                    result.keywords = this.keywords;
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Get the Subject from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A subject from database</returns>
+        public Subject DBGet(int id)
+        {
+            if (id > 0)
+            {
+                using (var db = new UberEversolContext())
+                {
+                    Subject sub = (from s in db.Subjects
+                                   where s.id == id
+                                   select s).First();
+                    return sub;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Remove the selected subject from db
+        /// </summary>
+        /// <param name="id"></param>
+        public void DBRemove()
+        {
+            using (var db = new UberEversolContext())
+            {
+                db.Tracks.Remove(this);
                 db.SaveChanges();
             }
         }

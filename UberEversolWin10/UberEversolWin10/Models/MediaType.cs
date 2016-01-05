@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 
-namespace UberEversol.Models
+namespace UberEversol.Model
 {
-    public class MediaType
+    public partial class MediaType
     {
-        public int id { get; set; }
+        public MediaType()
+        {
+
+        }
     }
 }
