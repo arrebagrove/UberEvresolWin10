@@ -12,7 +12,6 @@
         <TextBlock x:Name="lblNotify" FontSize="18" Visibility="Collapsed" />
         <TextBox x:Name="txtFirstName" MaxWidth="200" Header="First Name" />
         <TextBox x:Name="txtLastName" MaxWidth="200" Header="Last Name" />
-        <TextBox x:Name="txtFullName" MaxWidth="400" Header="Full Name" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Models;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,18 +38,23 @@ namespace UberEversol.Pages
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-                sessionId = int.Parse(e.Parameter.ToString());
-
-            selSession = selSession.DBGet(sessionId);    // Load the session object
-            lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();
-
-            if (selSession != null)
+            if (e.Parameter != null) // Check for param
             {
-                dtDate.Date = selSession.Date;
-                txtTitle.Text = selSession.Title.ToString();
-                txtDescription.Text = selSession.Description.ToString();
-                txtFolder.Text = selSession.FolderDirectory != null ? selSession.FolderDirectory.ToString() : "";
+                sessionId = int.Parse(e.Parameter.ToString()); // Get the Parameter
+
+                if (sessionId > 0)  // Check if the session id is valid
+                {
+                    selSession = selSession.DBGet(sessionId);    // Load the session object
+
+                    if (selSession != null)
+                    {
+                        lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();   // Temporary
+                        dtDate.Date = selSession.created.Date;
+                        txtTitle.Text = selSession.title.ToString();
+                        txtDescription.Text = selSession.description.ToString();
+                        txtFolder.Text = selSession.folderDir != null ? selSession.folderDir.ToString() : "";
+                    }
+                }
             }
         }
 
@@ -70,6 +75,11 @@ namespace UberEversol.Pages
         /// <param name="e"></param>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            selSession.title = txtTitle.Text;
+            selSession.description = txtDescription.Text;
+            selSession.folderDir = txtFolder.Text;
+            
+
             // Save the session
             selSession.DBSave();
         }

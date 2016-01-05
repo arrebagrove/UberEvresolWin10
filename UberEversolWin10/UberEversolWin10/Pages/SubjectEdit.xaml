@@ -12,7 +12,6 @@
         <TextBlock x:Name="lblNotify" FontSize="18" Visibility="Collapsed" HorizontalAlignment="Center" />
         <TextBox x:Name="txtFirstName" MinWidth="200" Header="First Name" HorizontalAlignment="Left" />
         <TextBox x:Name="txtLastName" MinWidth="200" Header="Last Name" HorizontalAlignment="Left" />
-        <TextBox x:Name="txtFullName" MinWidth="400" Header="Full Name" HorizontalAlignment="Left" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />

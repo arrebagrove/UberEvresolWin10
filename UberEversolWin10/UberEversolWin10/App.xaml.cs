@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Data.Entity;
 using UberEversol.Pages;
+using UberEversol.Model;
 
 namespace UberEversol
 {

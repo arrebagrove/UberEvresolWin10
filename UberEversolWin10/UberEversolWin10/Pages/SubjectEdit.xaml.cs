@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,9 +45,8 @@ namespace UberEversol.Pages
 
             if (person != null)
             {
-                txtFirstName.Text = person.FirstName.ToString();
-                txtLastName.Text = person.LastName.ToString();
-                txtFullName.Text = person.FullName.ToString();
+                txtFirstName.Text = person.first_name.ToString();
+                txtLastName.Text = person.last_name.ToString();
             }
         }
 
@@ -59,7 +59,7 @@ namespace UberEversol.Pages
         {
             try
             {
-                person = new Subject(txtFirstName.Text, txtLastName.Text, txtFullName.Text);
+                person = new Subject(txtFirstName.Text, txtLastName.Text);
                 person.DBSave();
             }
             catch(InvalidDataException exc)

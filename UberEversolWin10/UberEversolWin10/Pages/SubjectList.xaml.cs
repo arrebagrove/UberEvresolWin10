@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Models;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -55,7 +55,7 @@ namespace UberEversol.Pages
             {
                 if (subject_list.SelectedIndex >= 0)
                 {
-                    int selId = ((Subject)subject_list.SelectedItem).Id;
+                    int selId = ((Subject)subject_list.SelectedItem).id;
 
                     // Open the session live and pass the Id in to the frame
                     frame.Navigate(typeof(SubjectView), selId);
@@ -87,7 +87,7 @@ namespace UberEversol.Pages
         private void AppBtnDelete_Click(object sender, RoutedEventArgs e)
         {
             Subject selSub = (Subject)subject_list.SelectedItem;
-            int selItem = selSub.Id;
+            int selItem = selSub.id;
 
             if (selItem >= 0)
             {
@@ -108,7 +108,7 @@ namespace UberEversol.Pages
 
             if (subject_list.SelectedIndex >= 0)
             {
-                int selId = ((Subject)subject_list.SelectedItem).Id;
+                int selId = ((Subject)subject_list.SelectedItem).id;
 
                 // Open the session live and pass the Id in to the frame
                 frame.Navigate(typeof(SubjectEdit), selId);

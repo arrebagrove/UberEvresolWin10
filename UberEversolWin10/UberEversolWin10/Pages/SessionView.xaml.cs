@@ -12,8 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Models;
+using UberEversol.Model;
 using Windows.UI.Popups;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -78,7 +79,7 @@ namespace UberEversol.Pages
             using (var db = new UberEversolContext())
             {
                 var s = new Session(txtTitle.Text, txtDesc.Text);
-                var title = lvi.Title;
+                var title = lvi.title;
                 db.Sessions.Remove(lvi);
                 db.SaveChanges();
 

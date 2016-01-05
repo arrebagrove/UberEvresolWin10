@@ -22,21 +22,14 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
-                            <!-- ID -->
                             <ColumnDefinition Width="50" />
-                            <!-- Image -->
                             <ColumnDefinition Width="200" />
-                            <!-- First Name-->
                             <ColumnDefinition Width="200" />
-                            <!-- Last Name-->
-                            <ColumnDefinition Width="400" />
-                            <!-- Full Name-->
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="1" Text="Image" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="First Name" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="3" Text="Last Name" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="4" Text="Full Name" HorizontalAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </ListView.HeaderTemplate>
@@ -45,25 +38,18 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
-                            <!-- ID -->
                             <ColumnDefinition Width="50" />
-                            <!-- Image -->
                             <ColumnDefinition Width="200" />
-                            <!-- First Name-->
                             <ColumnDefinition Width="200" />
-                            <!-- Last Name-->
-                            <ColumnDefinition Width="400" />
-                            <!-- Full Name-->
                         </Grid.ColumnDefinitions>
                         <!--<Grid.RowDefinitions>
                             <RowDefinition Height="50" />
                             <RowDefinition Height="*"  />
                         </Grid.RowDefinitions>-->
-                        <TextBlock x:Name="txtId" Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center" />
+                        <TextBlock x:Name="txtId" Grid.Column="0" Text="{Binding id}" HorizontalAlignment="Center" />
                         <SymbolIcon x:Name="imgAvatar" Grid.Column="1" Symbol="Contact" Margin="12,0,12,0"/>
-                        <TextBlock x:Name="txtFName" Grid.Column="2" Text="{Binding FirstName}" HorizontalAlignment="Left" />
-                        <TextBlock x:Name="txtLName" Grid.Column="3" Text="{Binding LastName}" HorizontalAlignment="Left" />
-                        <TextBlock x:Name="FullName" Grid.Column="4" Text="{Binding FullName}" HorizontalAlignment="Left" />
+                        <TextBlock x:Name="txtFName" Grid.Column="2" Text="{Binding first_name}" HorizontalAlignment="Left" />
+                        <TextBlock x:Name="txtLName" Grid.Column="3" Text="{Binding last_name}" HorizontalAlignment="Left" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

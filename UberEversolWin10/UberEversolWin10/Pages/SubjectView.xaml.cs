@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,13 +40,15 @@ namespace UberEversol.Pages
             if (e.Parameter != null)
                 sId = int.Parse(e.Parameter.ToString());
 
-            selSubject = selSubject.DBGet(sId);    // Load the session object
+            if (sId > 0)
+            {
+                selSubject = selSubject.DBGet(sId);    // Load the session object
 
-            lblTitle.Text = lblTitle.Text + " - " + sId.ToString();
+                lblTitle.Text = lblTitle.Text + " - " + sId.ToString();
 
-            txtFirstName.Text = selSubject.FirstName.ToString();
-            txtLastName.Text = selSubject.LastName.ToString();
-            txtFullName.Text = selSubject.FullName.ToString();            
+                txtFirstName.Text = selSubject.first_name.ToString();
+                txtLastName.Text = selSubject.last_name.ToString();
+            }
         }
 
         /// <summary>

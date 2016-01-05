@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Models;
+using UberEversol.Model;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,11 +44,11 @@ namespace UberEversol.Pages
             using (var db = new UberEversolContext())
             {
                 var ses = from s in db.Sessions
-                          where s.Id == sessionId
+                          where s.id == sessionId
                           select s;
-                txtTitle.Text = ses.Select(s => s.Title).ToString();
-                txtDescription.Text = ses.Select(s => s.Description).ToString();
-                txtFolder.Text = ses.Select(s => s.FolderDirectory).ToString();
+                txtTitle.Text = ses.Select(s => s.title).ToString();
+                txtDescription.Text = ses.Select(s => s.description).ToString();
+                txtFolder.Text = ses.Select(s => s.folderDir).ToString();
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
                 //lstTrack.ItemsSource = db.Track.Where(r => r.se = sessionId).ToList();
@@ -70,10 +70,10 @@ namespace UberEversol.Pages
 
             if (selSession != null)
             {
-                txtDate.Text = selSession.Date.ToString();
-                txtTitle.Text = selSession.Title.ToString();
-                txtDescription.Text = selSession.Description.ToString();
-                txtFolder.Text = selSession.FolderDirectory != null? selSession.FolderDirectory.ToString():"";
+                txtDate.Text = selSession.created.ToString();
+                txtTitle.Text = selSession.title.ToString();
+                txtDescription.Text = selSession.description.ToString();
+                txtFolder.Text = selSession.folderDir != null? selSession.folderDir.ToString():"";
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
                 //lstTrack.ItemsSource = db.Track.Where(r => r.se = sessionId).ToList();
