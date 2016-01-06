@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
-        <TextBlock x:Name="lblTitle" Text="Session Live" FontSize="32" />
+        <TextBlock x:Name="lblTitle" Text="Session Live" FontSize="27" />
         <TextBox x:Name="txtDate" Header="Date" Text="{Binding created}" PlaceholderText="Title" MinWidth="200"/>
         <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200"
                  Text="{Binding title}"

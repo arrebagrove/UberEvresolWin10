@@ -78,10 +78,10 @@ namespace UberEversol.Pages
             selSession.title = txtTitle.Text;
             selSession.description = txtDescription.Text;
             selSession.folderDir = txtFolder.Text;
-            
+            selSession.created = dtDate.Date.Date;
 
             // Save the session
-            selSession.DBSave();
+            selSession.DBUpdate();
         }
     }
 }

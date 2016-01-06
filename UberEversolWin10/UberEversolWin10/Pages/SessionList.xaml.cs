@@ -55,6 +55,9 @@ namespace UberEversol.Pages
             //{
             //    dialog = new MessageDialog("Item Selected");
             //}
+            appBtnEditSession.Visibility = Visibility.Visible;
+            appBtnRemoveSession.Visibility = Visibility.Visible;
+            cmdSep1.Visibility = Visibility.Visible;
         }
 
         private void btnNewSession_Click(object sender, RoutedEventArgs e)
@@ -67,10 +70,6 @@ namespace UberEversol.Pages
             }
         }
 
-        private void btnRemoveSession_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Open a Session live recording
@@ -111,6 +110,68 @@ namespace UberEversol.Pages
                     // Open the session live and pass the Id in to the frame
                     frame.Navigate(typeof(SessionLive), selId);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Session add click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void appBtnNewSession_Click(object sender, RoutedEventArgs e)
+        {
+            cdNewSession newSessionDialog = new cdNewSession();
+            await newSessionDialog.ShowAsync();
+
+            if (newSessionDialog.result == cdResult.AddSuccess)
+            {
+                // Add New was successful.
+                // Refresh the listview
+                using (var db = new UberEversolContext())
+                {
+                    session_list.ItemsSource = db.Subjects.ToList();
+                }
+            }
+            else if (newSessionDialog.result == cdResult.AddFail)
+            {
+                // Add failed.
+                // Prompt User
+            }
+        }
+
+        /// <summary>
+        /// Session Delete button event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void appBtnRemoveSession_Click(object sender, RoutedEventArgs e)
+        {
+            Session selSub = (Session)session_list.SelectedItem;
+            int selItem = selSub.id;
+
+            if (selItem >= 0)
+            {
+                selSub.DBRemove();
+            }
+
+            Frame.Navigate(typeof(SessionList));
+        }
+
+        /// <summary>
+        /// Session Edit button event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void appBtnEditSession_Click(object sender, RoutedEventArgs e)
+        {
+            var frame = this.DataContext as Frame;
+
+            if (session_list.SelectedIndex >= 0)
+            {
+                int selId = ((Session)session_list.SelectedItem).id;
+
+                // Open the session live and pass the Id in to the frame
+                frame.Navigate(typeof(SessionEdit), selId);
             }
         }
     }
