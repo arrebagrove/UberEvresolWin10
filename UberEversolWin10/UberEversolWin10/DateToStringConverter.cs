@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace UberEversol
+namespace UberEversol.Pages
 {
     public class DateToStringConverter : IValueConverter
     {
