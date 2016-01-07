@@ -13,6 +13,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UberEversol.Model;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 // The Content Dialog item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -85,6 +89,47 @@ namespace UberEversol.Pages
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Choose image click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnChooseImage_Click(object sender, RoutedEventArgs e)
+        {
+            int decodePixelHeight = 200;
+            int decodePixelWidth = 200;
+
+            FileOpenPicker open = new FileOpenPicker();
+            open.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            open.ViewMode = PickerViewMode.Thumbnail;
+
+            // Filter to include a sample subset of file types
+            open.FileTypeFilter.Clear();
+            open.FileTypeFilter.Add(".bmp");
+            open.FileTypeFilter.Add(".png");
+            open.FileTypeFilter.Add(".jpeg");
+            open.FileTypeFilter.Add(".jpg");
+
+            // Open a stream for the selected file
+            StorageFile file = await open.PickSingleFileAsync();
+
+            // Ensure a file was selected
+            if (file != null)
+            {
+                // Ensure the stream is disposed once the image is loaded
+                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+                    // Set the image source to the selected bitmap
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.DecodePixelHeight = decodePixelHeight;
+                    bitmapImage.DecodePixelWidth = decodePixelWidth;
+
+                    await bitmapImage.SetSourceAsync(fileStream);
+                    imgPerson.Source = bitmapImage;
+                }
+            }
         }
     }
 }
