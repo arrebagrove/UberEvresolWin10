@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="UberEversol.Pages.cdNewTrack"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UberEversol.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Add a New Track"
+    PrimaryButtonText="Save"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <StackPanel>
+        <TextBox x:Name="txtTitle" MaxLength="200" Header="Title" />
+        <TextBox x:Name="txtDesc" MaxLength="300" Header="Description" />
+        <TextBox x:Name="txtKeywords" MaxLength="200" Header="Keywords" />
+        <ComboBox x:Name="lstbSubjects" Header="Subjects" />
+    </StackPanel>
+</ContentDialog>

@@ -7,31 +7,35 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
-        <TextBlock x:Name="lblTitle" Text="Session Live" FontSize="27" />
-        <TextBox x:Name="txtDate" Header="Date" Text="{Binding created}" PlaceholderText="Title" MinWidth="200"/>
-        <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200"
-                 Text="{Binding title}"
-                 HorizontalAlignment="Left" />
-        <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
-                Text="{Binding description}"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                PlaceholderText="Description" HorizontalAlignment="Left"
-                MinWidth="300" />
-        <TextBox x:Name="txtFolder" Header="Folder"  PlaceholderText="Folder" MinWidth="300"
-                Text="{Binding file_name}"
-                HorizontalAlignment="Left" />
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Name="lblTitle" Text="Session Live" FontSize="27" Padding="15" />
+        <StackPanel Padding="10 20">
+            <TextBox x:Name="txtDate" Header="Date" Text="{Binding created}" PlaceholderText="Title" MinWidth="200"/>
+            <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200"
+                     Text="{Binding title}"
+                     HorizontalAlignment="Left" />
+            <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
+                    Text="{Binding description}"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    PlaceholderText="Description" HorizontalAlignment="Left"
+                    MinWidth="300" />
+            <TextBox x:Name="txtFolder" Header="Folder"  PlaceholderText="Folder" MinWidth="300"
+                    Text="{Binding file_name}"
+                    HorizontalAlignment="Left" />
+        </StackPanel>
 
-        <Grid>
-
-        </Grid>
-        <ListView x:Name="lstTrack">
+        <CommandBar>
+            <AppBarButton x:Name="appBtnNewTrack" Icon="Add" Label="New Track" Click="appBtnNewTrack_Click"/>
+            <AppBarButton x:Name="appBtnDeleteTrack" Icon="Remove" Label="Delete" Click="appBtnDeleteTrack_Click"/>
+            <AppBarButton x:Name="appBtnEditTrack" Icon="Edit" Label="Edit" Click="appBtnEditTrack_Click" Visibility="Collapsed"/>
+        </CommandBar>
+        <ListView x:Name="track_list" MinHeight="400">
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25" />
-                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition MinWidth="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -39,8 +43,6 @@
                         <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="1" Text="Subject" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="Details" HorizontalAlignment="Center" />
-                        <Button Grid.Column="3" x:Name="btnAddTrack" Content="Add" />
-                        <Button Grid.Column="4" x:Name="btnRemove" Content="Remove" />
                         <!--<TextBlock Grid.Column="3" Text="Description" HorizontalAlignment="Center" />-->
                     </Grid>
                 </DataTemplate>
@@ -50,18 +52,19 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition MinWidth="25" />
-                            <ColumnDefinition MinWidth="75" />
+                            <ColumnDefinition MaxWidth="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="75" />
+                            <RowDefinition Height="100" />
                             <RowDefinition Height="*"  />
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding id}" HorizontalAlignment="Center" />
-                        <Image x:Name="imgSubject" Height="75" Width="75" />
+                        <Image x:Name="imgSubject" Height="75" Width="75" Grid.Column="1"/>
                         <StackPanel Grid.Column="2" HorizontalAlignment="Left">
                             <!--<TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />-->
-                            <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" />
+                            <TextBlock x:Name="lblSubjects" Text="{Binding subjexts}" HorizontalAlignment="Left" FontSize="18" />
+                            <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" />
                             <TextBlock x:Name="lblDesc" Text="{Binding description}" />
                             <TextBlock x:Name="lblDuration" Text="00:00:00" HorizontalAlignment="Left" />
                         </StackPanel>
