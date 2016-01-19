@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
-        <TextBlock FontSize="50">Subject List</TextBlock>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock FontSize="50" Padding="10 20">Subject List</TextBlock>
         <CommandBar>
             <AppBarButton x:Name="AppBtnNew" Icon="Add" Label="New" Click="AppBtnNewSubject_Dialog_Click"/>
             <AppBarButton x:Name="AppBtnDelete" Icon="Remove" Label="Delete" Click="AppBtnDelete_Click"/>

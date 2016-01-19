@@ -20,7 +20,7 @@
         </Flyout>
     </ContentDialog.Resources>
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20 10 20 10">
+    <StackPanel Padding="20 10 20 10">
         <Viewbox Width="200" Height="200" HorizontalAlignment="Center" >
             <Image x:Name="imgPerson" />
             <!--SymbolIcon x:Name="imgAvatar" Symbol="Contact" Margin="12,0,12,0" Height="200" Width="200"/-->

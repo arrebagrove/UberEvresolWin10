@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Model;
+using UberEversol.DataModel;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -32,8 +32,9 @@ namespace UberEversol.Pages
     public sealed partial class cdNewSubject : ContentDialog
     {
 
-        protected Subject newSub;
+        public Subject newSub;
         public cdResult result { get; set; }
+        byte[] imgTemp;
 
         public cdNewSubject()
         {
@@ -88,7 +89,8 @@ namespace UberEversol.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            newSub = new Subject(txtFirstName.Text, txtLastName.Text);
+            newSub.image = imgTemp;
         }
 
         /// <summary>
@@ -128,6 +130,11 @@ namespace UberEversol.Pages
 
                     await bitmapImage.SetSourceAsync(fileStream);
                     imgPerson.Source = bitmapImage;
+
+                    ImageTools img = new ImageTools();
+
+                    imgTemp = await img.ConvertToBytes(fileStream);  // Convert the image to bytes
+                    
                 }
             }
         }
