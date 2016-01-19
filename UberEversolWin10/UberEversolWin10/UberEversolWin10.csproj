@@ -100,9 +100,10 @@
     </Compile>
     <Compile Include="Data\DBHandler.cs" />
     <Compile Include="DateToStringConverter.cs" />
-    <Compile Include="Migrations\20160105070658_FirstMigration.cs" />
-    <Compile Include="Migrations\20160105070658_FirstMigration.designer.cs">
-      <DependentUpon>20160105070658_FirstMigration.cs</DependentUpon>
+    <Compile Include="ImageTools.cs" />
+    <Compile Include="Migrations\20160119071802_first_migration.cs" />
+    <Compile Include="Migrations\20160119071802_first_migration.designer.cs">
+      <DependentUpon>20160119071802_first_migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
@@ -114,6 +115,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\TrackSubjects.cs" />
     <Compile Include="Pages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -122,6 +124,9 @@
     </Compile>
     <Compile Include="Pages\cdNewSubject.xaml.cs">
       <DependentUpon>cdNewSubject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\cdNewTrack.xaml.cs">
+      <DependentUpon>cdNewTrack.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -203,6 +208,10 @@
     <Page Include="Pages\cdNewSubject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\cdNewTrack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Home.xaml">
       <SubType>Designer</SubType>

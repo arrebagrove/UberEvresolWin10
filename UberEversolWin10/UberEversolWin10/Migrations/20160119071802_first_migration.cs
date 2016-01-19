@@ -4,7 +4,7 @@ using Microsoft.Data.Entity.Migrations;
 
 namespace UberEversol.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class first_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,6 +54,39 @@ namespace UberEversol.Migrations
                     table.PrimaryKey("PK_Session", x => x.id);
                 });
             migrationBuilder.CreateTable(
+                name: "Subject",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    active = table.Column<bool>(nullable: false),
+                    created = table.Column<DateTime>(nullable: false),
+                    dob = table.Column<DateTime>(nullable: true),
+                    first_name = table.Column<string>(nullable: false),
+                    hit_count = table.Column<int>(nullable: false),
+                    image = table.Column<byte[]>(nullable: true),
+                    last_name = table.Column<string>(nullable: false),
+                    recording_count = table.Column<int>(nullable: false),
+                    user_rating = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subject", x => x.id);
+                });
+            migrationBuilder.CreateTable(
+                name: "TrackSubjects",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    subject_id = table.Column<int>(nullable: false),
+                    track_id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrackSubjects", x => x.id);
+                });
+            migrationBuilder.CreateTable(
                 name: "MediaRequest",
                 columns: table => new
                 {
@@ -100,6 +133,7 @@ namespace UberEversol.Migrations
                     index = table.Column<int>(nullable: false),
                     keywords = table.Column<string>(nullable: true),
                     session_id = table.Column<int>(nullable: false),
+                    subject_id = table.Column<int>(nullable: false),
                     title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -117,41 +151,22 @@ namespace UberEversol.Migrations
                         principalTable: "Session",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-            migrationBuilder.CreateTable(
-                name: "Subject",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Trackid = table.Column<int>(nullable: true),
-                    active = table.Column<bool>(nullable: false),
-                    created = table.Column<DateTime>(nullable: false),
-                    dob = table.Column<DateTime>(nullable: true),
-                    first_name = table.Column<string>(nullable: false),
-                    hit_count = table.Column<int>(nullable: false),
-                    last_name = table.Column<string>(nullable: false),
-                    recording_count = table.Column<int>(nullable: false),
-                    user_rating = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subject", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Subject_Track_Trackid",
-                        column: x => x.Trackid,
-                        principalTable: "Track",
+                        name: "FK_Track_Subject_subject_id",
+                        column: x => x.subject_id,
+                        principalTable: "Subject",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("Subject");
             migrationBuilder.DropTable("Track");
+            migrationBuilder.DropTable("TrackSubjects");
             migrationBuilder.DropTable("MediaRequest");
             migrationBuilder.DropTable("Session");
+            migrationBuilder.DropTable("Subject");
             migrationBuilder.DropTable("MediaType");
             migrationBuilder.DropTable("Requestee");
         }
