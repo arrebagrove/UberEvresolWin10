@@ -16,6 +16,17 @@
         <TextBox x:Name="txtTitle" MaxLength="200" Header="Title" />
         <TextBox x:Name="txtDesc" MaxLength="300" Header="Description" />
         <TextBox x:Name="txtKeywords" MaxLength="200" Header="Keywords" />
-        <ComboBox x:Name="lstbSubjects" Header="Subjects" />
+        <ComboBox x:Name="cboSubjects" Header="Subjects" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IconPath}"></Image>
+                        <TextBlock Text="{Binding first_name}" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding last_name}" FontWeight="SemiBold" Padding="5 0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
     </StackPanel>
 </ContentDialog>

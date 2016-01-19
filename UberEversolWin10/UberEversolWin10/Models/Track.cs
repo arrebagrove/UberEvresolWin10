@@ -4,9 +4,8 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.Model;
 
-namespace UberEversol.Model
+namespace UberEversol.DataModel
 {
     public partial class Track
     {
@@ -60,21 +59,35 @@ namespace UberEversol.Model
         /// Add subject to subject list
         /// </summary>
         /// <param name="person"></param>
-        public void appendSubjects(Subject person)
-        {
-           this.subjects.Add(person);
-        }
+        //public void appendSubjects(Subject person)
+        //{
+        //    if (subjects == null)
+        //        this.subjects = new List<Subject>();
+
+        //    this.subjects.Add(person);
+        //}
 
         /// <summary>
         /// Add list of subjects to subjects list list
         /// </summary>
         /// <param name="people"></param>
-        public void appendSubjects(List<Subject> people)
+        //public void appendSubjects(List<Subject> people)
+        //{
+        //    if (this.subjects != null)
+        //        this.subjects = new List<Subject>();
+
+        //    foreach (Subject p in people)
+        //        this.subjects.Add(p);
+        //}
+
+
+        /// <summary>
+        /// Load all data structures from DB
+        /// </summary>
+        public void loadStructures()
         {
-            foreach (Subject p in people)
-            {
-               this.subjects.Add(p);
-            }
+            this.subject = new Subject();
+            this.subject = this.subject.DBGet(this.subject_id);
         }
 
         /// <summary>
@@ -103,6 +116,22 @@ namespace UberEversol.Model
         {
             using (var db = new UberEversolContext())
             {
+                //TrackSubjects ts = new TrackSubjects();
+                //ts.track_id = this.id;
+
+                //List<TrackSubjects> existingSub = db.TracksSubjects.Where(t => t.subject_id == this.id).ToList();
+
+                // Loop through all the subjects in track
+                //foreach(Subject s in this.subjects)
+                //{
+                //    if (!existingSub.Exists(t => t.subject_id == s.id))
+                //    {
+                //        ts.subject_id = s.id;
+                //        db.TracksSubjects.Add(ts);
+                //    }
+                //}
+
+                
                 db.Tracks.Add(this);
                 db.SaveChanges();
             }
@@ -127,7 +156,8 @@ namespace UberEversol.Model
                     result.file_dir = this.file_dir;
                     result.file_size = this.file_size;
 
-                    result.subjects = this.subjects;
+                    result.subject = this.subject;
+                    result.subject_id = this.subject_id;
                     result.keywords = this.keywords;
 
                     db.SaveChanges();
@@ -140,16 +170,29 @@ namespace UberEversol.Model
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A subject from database</returns>
-        public Subject DBGet(int id)
+        public Track DBGet(int id)
         {
             if (id > 0)
             {
                 using (var db = new UberEversolContext())
                 {
-                    Subject sub = (from s in db.Subjects
+                    Track trk = (from s in db.Tracks
                                    where s.id == id
                                    select s).First();
-                    return sub;
+
+                    //if (trk != null)
+                    //{
+                    //    trk.subjects = new List<Subject>();
+                    //    trk.subjects = (from s in db.Subjects
+                    //                         from ts in db.TracksSubjects
+                    //                         where s.id == ts.subject_id
+                    //                         where ts.track_id == trk.id
+                    //                         select s).ToList();
+                    //}
+
+                    trk.subject = trk.subject.DBGet(trk.subject_id); // Load the subject from DB
+
+                    return trk;
                 }
             }
             return null;

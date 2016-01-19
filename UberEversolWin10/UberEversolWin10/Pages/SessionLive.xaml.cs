@@ -53,8 +53,8 @@ namespace UberEversol.Pages
                 txtFolder.Text = ses.Select(s => s.folderDir).ToString();
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
-                //lstTrack.ItemsSource = ses.tracks;
             }
+
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace UberEversol.Pages
                 txtFolder.Text = selSession.folderDir != null? selSession.folderDir.ToString():"";
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
-                track_list.ItemsSource = selSession.tracks;
+                track_list.ItemsSource = selSession.tracks.OrderBy(t => t.index).ToList();
             }
         }
 
@@ -91,15 +91,19 @@ namespace UberEversol.Pages
         {
             // Open a Track content dialog
             cdNewTrack newTrackDialog = new cdNewTrack();
+            int maxIndx = 0;
+
             await newTrackDialog.ShowAsync();
+
             if (newTrackDialog.usrClicked == cdClicked.Save)
             {
-                using (var db = new UberEversolContext())
-                {
-                    newTrackDialog.newTrack.session = selSession;
-                    db.Tracks.Add(newTrackDialog.newTrack);
-                    await db.SaveChangesAsync();
-                }
+                newTrackDialog.newTrack.session = selSession;
+                // Get max index
+                maxIndx = selSession.getMaxTrackIndex();
+                    
+                // set track index
+                newTrackDialog.newTrack.index = maxIndx + 1;
+                newTrackDialog.newTrack.DBSave();
             }
 
            // Refresh the listview
@@ -121,10 +125,11 @@ namespace UberEversol.Pages
             if (selItem >= 0)
             {
                 selTrack.DBRemove();
+                selSession.tracks.Remove(selTrack);
             }
 
             // Refresh the list
-            track_list.ItemsSource = selSession.tracks;
+            track_list.ItemsSource = selSession.tracks.ToList();
         }
 
         /// <summary>
@@ -140,6 +145,75 @@ namespace UberEversol.Pages
 
             // Refresh the listview
             track_list.ItemsSource = selSession.tracks.ToList();
+        }
+
+        /// <summary>
+        /// Click event for button to move track up index
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void appBtnIndexUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event for button to move track to first index
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void appBtnIndexToFirst_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Click event for button to move track to last index
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void appBtnIndexToLast_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// Track list selection changed event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void track_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (track_list.SelectedIndex >= 0)
+            {
+                appBtnIndexToFirst.Visibility = Visibility.Visible;
+                appBtnIndexToLast.Visibility = Visibility.Visible;
+                appBtnIndexUp.Visibility = Visibility.Visible;
+                appBtnEditTrack.Visibility = Visibility.Visible;
+                appBarSep1.Visibility = Visibility.Visible;
+                appBarSep2.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                appBtnIndexToFirst.Visibility = Visibility.Collapsed;
+                appBtnIndexToLast.Visibility = Visibility.Collapsed;
+                appBtnIndexUp.Visibility = Visibility.Collapsed;
+                appBtnEditTrack.Visibility = Visibility.Collapsed;
+                appBarSep1.Visibility = Visibility.Collapsed;
+                appBarSep2.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Track list drag and drop initiated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void track_list_DragEnter(object sender, DragEventArgs e)
+        {
+
         }
     }
 }

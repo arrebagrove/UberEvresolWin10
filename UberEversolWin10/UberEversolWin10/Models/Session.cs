@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UberEversol.Model
+namespace UberEversol.DataModel
 {
     
     public partial class Session
@@ -80,14 +80,20 @@ namespace UberEversol.Model
             // Populate object with data from database
             using (var db = new UberEversolContext())
             {
+                // Load the session
                 Session ses = (from s in db.Sessions
                                where s.id == id
                                select s).First();
 
-                if (ses != null)
-                    return ses;
-                else
-                    return null;
+                // Load the tracks
+                ses.tracks = (from t in db.Tracks
+                              where t.session_id == ses.id
+                              select t).ToList();
+
+                foreach(Track t in ses.tracks)
+                    t.loadStructures();
+
+                return ses;
             }
         }
 
@@ -135,6 +141,22 @@ namespace UberEversol.Model
                 db.Sessions.Remove(this);
                 db.SaveChanges();
             }
+        }
+
+
+        /// <summary>
+        /// Gets the highest last index in tracks list for this session
+        /// </summary>
+        /// <returns>max index</returns>
+        public int getMaxTrackIndex()
+        {
+            int maxIndx = 0;
+            using (var db = new UberEversolContext())
+            {
+                db.Sessions.Remove(this);
+                maxIndx = db.Tracks.Where(t => t.session_id == this.id).Max(t => t.index);
+            }
+            return maxIndx;
         }
     }
 }

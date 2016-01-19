@@ -32,6 +32,18 @@ namespace UberEversol.Pages
         public cdNewTrack()
         {
             this.InitializeComponent();
+
+            List<Subject> subject_list;
+            using (var db = new UberEversolContext())
+            {
+                // Get the list of subject names and ids
+                subject_list = db.Subjects.OrderBy(t => t.first_name).ToList();
+            }
+
+            foreach (Subject s in subject_list)
+            {
+                cboSubjects.Items.Add(s);
+            }
         }
 
         /// <summary>
@@ -41,15 +53,16 @@ namespace UberEversol.Pages
         /// <param name="args"></param>
         private void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
+            List<Subject> subject_list;
             using (var db = new UberEversolContext())
             {
                 // Get the list of subject names and ids
-                lstbSubjects.ItemsSource = (from s in db.Subjects
-                                            select new
-                                            {
-                                                id = s.id,
-                                                name = s.first_name + " " + s.last_name
-                                            }).OrderBy(i => i.name).ToList();
+                subject_list = db.Subjects.OrderBy(t => t.first_name).ToList();
+            }
+
+            foreach(Subject s in subject_list)
+            {
+                cboSubjects.Items.Add(s);
             }
         }
 
@@ -62,6 +75,12 @@ namespace UberEversol.Pages
         {
             newTrack = new Track(DateTime.Now.Date, txtTitle.Text, txtDesc.Text);
             newTrack.keywords = txtKeywords.Text;
+
+            if (cboSubjects.SelectedIndex >= 0)
+            {
+                newTrack.subject = (Subject)cboSubjects.SelectedItem;
+            }
+
             usrClicked = cdClicked.Save; // Set the usrClicked value to save
         }
 

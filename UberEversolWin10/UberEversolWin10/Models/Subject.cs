@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 
-namespace UberEversol.Model
+namespace UberEversol.DataModel
 {
     public partial class Subject
     {

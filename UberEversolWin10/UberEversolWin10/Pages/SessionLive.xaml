@@ -25,22 +25,34 @@
         </StackPanel>
 
         <CommandBar>
+            <AppBarButton x:Name="appBtnIndexToFirst" Icon="Upload" Label="To First" Click="appBtnIndexToFirst_Click" Visibility="Collapsed" />
+            <AppBarButton x:Name="appBtnIndexUp" Icon="Up" Label="Up Index" Click="appBtnIndexUp_Click" Visibility="Collapsed" />
+            <AppBarButton x:Name="appBtnIndexToLast" Icon="Download" Label="To Last" Click="appBtnIndexToLast_Click" Visibility="Collapsed" />
+            <AppBarSeparator x:Name="appBarSep1" Visibility="Collapsed"></AppBarSeparator>
+            <AppBarButton x:Name="appBtnEditTrack" Icon="Edit" Label="Edit" Click="appBtnEditTrack_Click" Visibility="Collapsed" />
+            <AppBarSeparator x:Name="appBarSep2" Visibility="Collapsed"></AppBarSeparator>
             <AppBarButton x:Name="appBtnNewTrack" Icon="Add" Label="New Track" Click="appBtnNewTrack_Click"/>
             <AppBarButton x:Name="appBtnDeleteTrack" Icon="Remove" Label="Delete" Click="appBtnDeleteTrack_Click"/>
-            <AppBarButton x:Name="appBtnEditTrack" Icon="Edit" Label="Edit" Click="appBtnEditTrack_Click" Visibility="Collapsed"/>
+            
+            
         </CommandBar>
-        <ListView x:Name="track_list" MinHeight="400">
+        <ListView x:Name="track_list" MinHeight="400" CanReorderItems="True" CanDragItems="True"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding tracks}"
+                  SelectionChanged="track_list_SelectionChanged"
+                  DragEnter="track_list_DragEnter"
+                  ReorderMode="Enabled" IsSwipeEnabled="False">
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="25" />
+                            <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition MinWidth="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="0" Text="Index" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="1" Text="Subject" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="Details" HorizontalAlignment="Center" />
                         <!--<TextBlock Grid.Column="3" Text="Description" HorizontalAlignment="Center" />-->
@@ -51,21 +63,24 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="25" />
+                            <ColumnDefinition MinWidth="50" />
                             <ColumnDefinition MaxWidth="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
+                        <!--<Grid.RowDefinitions>
                             <RowDefinition Height="100" />
                             <RowDefinition Height="*"  />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding id}" HorizontalAlignment="Center" />
-                        <Image x:Name="imgSubject" Height="75" Width="75" Grid.Column="1"/>
+                        </Grid.RowDefinitions>-->
+                        <TextBlock Grid.Column="0" Text="{Binding index}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image x:Name="imgSubject" Height="75" Width="75" Grid.Column="1" />
                         <StackPanel Grid.Column="2" HorizontalAlignment="Left">
                             <!--<TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />-->
-                            <TextBlock x:Name="lblSubjects" Text="{Binding subjexts}" HorizontalAlignment="Left" FontSize="18" />
-                            <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" />
-                            <TextBlock x:Name="lblDesc" Text="{Binding description}" />
+                            <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontSize="13" FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="lblSubjectFName" Text="{Binding subject.first_name}" HorizontalAlignment="Left" FontSize="11" />
+                                <TextBlock x:Name="lblSubjectLName" Text="{Binding subject.last_name}" HorizontalAlignment="Left" FontSize="11" Margin="5 0" />
+                            </StackPanel>
+                            <TextBlock x:Name="lblDesc" Text="{Binding description}" FontSize="10" />
                             <TextBlock x:Name="lblDuration" Text="00:00:00" HorizontalAlignment="Left" />
                         </StackPanel>
                         

@@ -4,19 +4,21 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.Model;
+using UberEversol.DataModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
 //using SQLite.Net.Attributes;
 
-namespace UberEversol.Model
+namespace UberEversol.DataModel
 {
     public class UberEversolContext : DbContext
     {
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Track> Tracks { get; set; }
+        public DbSet<TrackSubjects> TracksSubjects { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
         public DbSet<MediaRequest> MediaRequest { get; set; }
@@ -95,8 +97,23 @@ namespace UberEversol.Model
         public Session session { get; set; }
 
         // Navigation
-        // List<Subject> subjects = new List<Subject>();
-        public virtual ICollection<Subject> subjects { get; set; }
+        public int subject_id { get; set; }
+        [ForeignKey("subject_id")]
+        public Subject subject { get; set; }
+        //public virtual ICollection<Subject> subjects { get; set; }
+    }
+
+    /// <summary>
+    /// Track and Subjects Many To Many relationship
+    /// </summary>
+    public partial class TrackSubjects
+    {
+        [Key]
+        public int id { get; set; }
+        [ForeignKey("track_id")]
+        public int track_id { get; set; }
+        [ForeignKey("subject_id")]
+        public int subject_id { get; set; }
     }
 
     /// <summary>
@@ -127,7 +144,7 @@ namespace UberEversol.Model
         public int hit_count { get; set; }
         public int recording_count { get; set; }
         public int user_rating { get; set; }
-        //public file image { get; set; }     // Image of the subject
+        public byte[] image { get; set; }     // Image of the subject
         public bool active { get; set; }
     }
 
