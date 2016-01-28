@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
+using System.IO;
+using Windows.Storage;
+using UberEversol.DataModel;
 
 namespace UberEversol.DataModel
 {
     public partial class Subject
     {
-        
 
         /// <summary>
         /// Default Constructor
@@ -91,6 +93,26 @@ namespace UberEversol.DataModel
         }
 
         /// <summary>
+        /// Sets the image of the subject to storage
+        /// </summary>
+        /// <param name="imageFile"></param>
+        public void setImage(StorageFile imageFile)
+        {
+            // Set the image file to string
+            string fileType = imageFile.FileType;
+            
+        }
+
+        /// <summary>
+        /// Gets the storage file stored in the string
+        /// </summary>
+        /// <returns></returns>
+        public StorageFile getImage()
+        {
+            return null;
+        }
+
+        /// <summary>
         /// Save the object to the database
         /// </summary>
         public void DBSave()
@@ -133,7 +155,7 @@ namespace UberEversol.DataModel
             {
                 using (var db = new UberEversolContext())
                 {
-                    Subject sub = (from s in db.Subjects
+                    Subject sub = (Subject)(from s in db.Subjects
                                    where s.id == id
                                    select s).First();
                     return sub;

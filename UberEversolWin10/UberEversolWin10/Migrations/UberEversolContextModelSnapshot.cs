@@ -3,7 +3,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
-using UberEversol.DataModel;
+using UberEversol.Model;
 
 namespace UberEversol.Migrations
 {
@@ -15,7 +15,7 @@ namespace UberEversol.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
-            modelBuilder.Entity("UberEversol.DataModel.MediaRequest", b =>
+            modelBuilder.Entity("UberEversol.Model.MediaRequest", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -42,7 +42,7 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.MediaType", b =>
+            modelBuilder.Entity("UberEversol.Model.MediaType", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -57,7 +57,7 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.Requestee", b =>
+            modelBuilder.Entity("UberEversol.Model.Requestee", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -77,7 +77,7 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.Session", b =>
+            modelBuilder.Entity("UberEversol.Model.Session", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -98,10 +98,12 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.Subject", b =>
+            modelBuilder.Entity("UberEversol.Model.Subject", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("Trackid");
 
                     b.Property<bool>("active");
 
@@ -128,7 +130,7 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.Track", b =>
+            modelBuilder.Entity("UberEversol.Model.Track", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -162,42 +164,33 @@ namespace UberEversol.Migrations
                     b.HasKey("id");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.TrackSubjects", b =>
+            modelBuilder.Entity("UberEversol.Model.MediaRequest", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("subject_id");
-
-                    b.Property<int>("track_id");
-
-                    b.HasKey("id");
-                });
-
-            modelBuilder.Entity("UberEversol.DataModel.MediaRequest", b =>
-                {
-                    b.HasOne("UberEversol.DataModel.MediaType")
+                    b.HasOne("UberEversol.Model.MediaType")
                         .WithMany()
                         .HasForeignKey("mediaid");
 
-                    b.HasOne("UberEversol.DataModel.Requestee")
+                    b.HasOne("UberEversol.Model.Requestee")
                         .WithMany()
                         .HasForeignKey("requestorid");
                 });
 
-            modelBuilder.Entity("UberEversol.DataModel.Track", b =>
+            modelBuilder.Entity("UberEversol.Model.Subject", b =>
                 {
-                    b.HasOne("UberEversol.DataModel.MediaRequest")
+                    b.HasOne("UberEversol.Model.Track")
+                        .WithMany()
+                        .HasForeignKey("Trackid");
+                });
+
+            modelBuilder.Entity("UberEversol.Model.Track", b =>
+                {
+                    b.HasOne("UberEversol.Model.MediaRequest")
                         .WithMany()
                         .HasForeignKey("MediaRequestid");
 
-                    b.HasOne("UberEversol.DataModel.Session")
+                    b.HasOne("UberEversol.Model.Session")
                         .WithMany()
                         .HasForeignKey("session_id");
-
-                    b.HasOne("UberEversol.DataModel.Subject")
-                        .WithMany()
-                        .HasForeignKey("subject_id");
                 });
         }
     }

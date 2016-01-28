@@ -4,7 +4,7 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.DataModel;
+using UberEversol.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
@@ -113,7 +113,7 @@ namespace UberEversol.DataModel
         [ForeignKey("track_id")]
         public int track_id { get; set; }
         [ForeignKey("subject_id")]
-        public int subject_id { get; set; }
+        public virtual ICollection<Subject> subjects { get; set; }
     }
 
     /// <summary>

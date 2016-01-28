@@ -46,21 +46,25 @@ namespace UberEversol.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void subject_list_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void subject_list_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            var frame = this.DataContext as Frame;
-            Page page = frame?.Content as Page;
+            //var frame = this.DataContext as Frame;
+            //Page page = frame?.Content as Page;
 
-            if (page?.GetType() != typeof(SubjectList))
-            {
-                if (subject_list.SelectedIndex >= 0)
-                {
-                    int selId = ((Subject)subject_list.SelectedItem).id;
+            //if (page?.GetType() != typeof(SubjectList))
+            //{
+            //    if (subject_list.SelectedIndex >= 0)
+            //    {
+            //        int selId = ((Subject)subject_list.SelectedItem).id;
 
-                    // Open the session live and pass the Id in to the frame
-                    frame.Navigate(typeof(SubjectView), selId);
-                }
-            }
+            //        // Open the session live and pass the Id in to the frame
+            //        frame.Navigate(typeof(SubjectView), selId);
+            //    }
+            //}
+
+            cdViewSubject newSubjectDialog = new cdViewSubject();
+            newSubjectDialog.selSubject = (Subject)subject_list.SelectedItem;
+            await newSubjectDialog.ShowAsync();
         }
 
         /// <summary>

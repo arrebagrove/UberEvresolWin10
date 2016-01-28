@@ -10,15 +10,20 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
         <TextBlock x:Name="lblTitle" Text="Subject Edit" FontSize="42" />
         <TextBlock x:Name="lblNotify" FontSize="18" Visibility="Collapsed" HorizontalAlignment="Center" />
+        <Viewbox Width="200" Height="200" HorizontalAlignment="Left" >
+            <Image x:Name="imgPerson" />
+            <!--SymbolIcon x:Name="imgAvatar" Symbol="Contact" Margin="12,0,12,0" Height="200" Width="200"/-->
+        </Viewbox>
+        <Button x:Name="btnChooseImage" Content="Choose Image" Click="btnChooseImage_Click" Width="200"/>
         <TextBox x:Name="txtFirstName" MinWidth="200" Header="First Name" HorizontalAlignment="Left" />
         <TextBox x:Name="txtLastName" MinWidth="200" Header="Last Name" HorizontalAlignment="Left" />
-        <Grid>
+        <Grid Padding="10 20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnCancel" Content="Cancel" Grid.Column="0" Click="btnCancel_Click"/>
-            <Button x:Name="btnSave" Content="Save" Grid.Column="1" Click="btnSave_Click"/>
+            <Button x:Name="btnSave" Content="Save" Grid.Column="0" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Cancel" Grid.Column="1" Click="btnCancel_Click"/>
         </Grid>
     </StackPanel>
 </Page>

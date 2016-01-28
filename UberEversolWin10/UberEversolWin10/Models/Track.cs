@@ -4,6 +4,7 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UberEversol.DataModel;
 
 namespace UberEversol.DataModel
 {
@@ -116,22 +117,6 @@ namespace UberEversol.DataModel
         {
             using (var db = new UberEversolContext())
             {
-                //TrackSubjects ts = new TrackSubjects();
-                //ts.track_id = this.id;
-
-                //List<TrackSubjects> existingSub = db.TracksSubjects.Where(t => t.subject_id == this.id).ToList();
-
-                // Loop through all the subjects in track
-                //foreach(Subject s in this.subjects)
-                //{
-                //    if (!existingSub.Exists(t => t.subject_id == s.id))
-                //    {
-                //        ts.subject_id = s.id;
-                //        db.TracksSubjects.Add(ts);
-                //    }
-                //}
-
-                
                 db.Tracks.Add(this);
                 db.SaveChanges();
             }
