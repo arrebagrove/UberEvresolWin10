@@ -25,9 +25,9 @@
             <Image x:Name="imgPerson" />
             <!--SymbolIcon x:Name="imgAvatar" Symbol="Contact" Margin="12,0,12,0" Height="200" Width="200"/-->
         </Viewbox>
-        <Button x:Name="btnChooseImage" Content="Choose Image" Click="btnChooseImage_Click" Width="200" HorizontalAlignment="Center"/>
-        <TextBox x:Name="txtFirstName" MinWidth="200" Header="First Name" HorizontalAlignment="Center" />
-        <TextBox x:Name="txtLastName" MinWidth="200" Header="Last Name" HorizontalAlignment="Center" />
+        <Button x:Name="btnChooseImage" Content="Choose Image" Click="btnChooseImage_Click" MaxWidth="200" HorizontalAlignment="Center"/>
+        <TextBox x:Name="txtFirstName" MinWidth="200" MaxWidth="200" Header="First Name" HorizontalAlignment="Center" />
+        <TextBox x:Name="txtLastName" MinWidth="200" MaxWidth="200" Header="Last Name" HorizontalAlignment="Center" />
     </StackPanel>
     
 </ContentDialog>

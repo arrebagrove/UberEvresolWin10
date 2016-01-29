@@ -42,7 +42,7 @@ namespace UberEversol.Pages
 
             if (sId > 0)
             {
-                selSubject = selSubject.DBGet(sId);    // Load the session object
+                selSubject = Subject.DBGet(sId);    // Load the session object
 
                 lblTitle.Text = lblTitle.Text + " - " + sId.ToString();
 

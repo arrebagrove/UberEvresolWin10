@@ -61,7 +61,7 @@ namespace UberEversol.Pages
         /// When navigated to from another frame
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             if(e.Parameter != null)
                 sessionId = int.Parse(e.Parameter.ToString());
@@ -78,7 +78,13 @@ namespace UberEversol.Pages
                 txtFolder.Text = selSession.folderDir != null? selSession.folderDir.ToString():"";
                 //db.Sessions.Where(s => s.id == sessionId);
                 // Load the Track list
-                track_list.ItemsSource = selSession.tracks.OrderBy(t => t.index).ToList();
+                List<Track> trackList= selSession.tracks.OrderBy(t => t.index).ToList();
+                foreach (Track t in trackList)
+                {
+                    t.subject.imageObj = await t.subject.loadImage();
+                }
+
+                track_list.ItemsSource = trackList;
             }
         }
 

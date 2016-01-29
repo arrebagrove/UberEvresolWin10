@@ -10,9 +10,12 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock FontSize="50" Padding="10 20">Subject List</TextBlock>
         <CommandBar>
+            <AppBarButton x:Name="AppBtnEdit" Icon="Edit" Label="Edit" Click="AppBtnEdit_Click" Visibility="Collapsed"/>
             <AppBarButton x:Name="AppBtnNew" Icon="Add" Label="New" Click="AppBtnNewSubject_Dialog_Click"/>
             <AppBarButton x:Name="AppBtnDelete" Icon="Remove" Label="Delete" Click="AppBtnDelete_Click"/>
-            <AppBarButton x:Name="AppBtnEdit" Icon="Edit" Label="Edit" Click="AppBtnEdit_Click" Visibility="Collapsed"/>
+            <AppBarSeparator BorderThickness="5"></AppBarSeparator>
+            <AppBarButton x:Name="AppBtnImportSubjects" Icon="ImportAll" Label="Import Subjects" />
+            <AppBarButton x:Name="AppBtnExportSubjects" Icon="Save" Label="Export Subjects" />
         </CommandBar>
         <ListView x:Name="subject_list" SelectionMode="Single" CanReorderItems="True"
                   DoubleTapped="subject_list_DoubleTapped"
@@ -22,14 +25,14 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
                         <TextBlock Grid.Column="1" Text="Image" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="2" Text="First Name" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="3" Text="Last Name" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="2" Text="Name" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="3" Text="Rating" HorizontalAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </ListView.HeaderTemplate>
@@ -38,18 +41,26 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
-                        <!--<Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="*"  />
-                        </Grid.RowDefinitions>-->
                         <TextBlock x:Name="txtId" Grid.Column="0" Text="{Binding id}" HorizontalAlignment="Center" />
-                        <SymbolIcon x:Name="imgAvatar" Grid.Column="1" Symbol="Contact" Margin="12,0,12,0"/>
-                        <TextBlock x:Name="txtFName" Grid.Column="2" Text="{Binding first_name}" HorizontalAlignment="Left" />
-                        <TextBlock x:Name="txtLName" Grid.Column="3" Text="{Binding last_name}" HorizontalAlignment="Left" />
+                        <!--SymbolIcon x:Name="imgAvatar" Grid.Column="1" Symbol="Contact" Margin="12,0,12,0" /-->
+                        <Viewbox Width="50" Height="50" Grid.Column="1" HorizontalAlignment="Center" Margin="10 2">
+                            <Image x:Name="imgPerson" Source="{Binding imageObj}" />
+                        </Viewbox>
+                            <StackPanel Grid.Column="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="txtFName" Text="{Binding first_name}" HorizontalAlignment="Left" />
+                                <TextBlock x:Name="txtLName" Text="{Binding last_name}" HorizontalAlignment="Left" Padding="5 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="lblRecording" FontSize="10" Foreground="Gray" >Recordings: </TextBlock>
+                                <TextBlock x:Name="txtRecordings" Grid.Column="3"  FontSize="10" Foreground="Gray" Text="{Binding recording_count}" Padding="5 0" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock x:Name="txtRating" Grid.Column="3" Text="{Binding user_rating}" HorizontalAlignment="Center" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

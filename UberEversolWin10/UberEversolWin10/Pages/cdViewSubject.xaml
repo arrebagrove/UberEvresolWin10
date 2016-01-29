@@ -12,9 +12,8 @@
     Opened="ContentDialog_Opened">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20 10 20 10">
-        <Viewbox MaxWidth="250" MaxHeight="250" >
-            <!--Image Source="Assets/Logo.png"/-->
-            <SymbolIcon x:Name="imgAvatar" Symbol="Contact" Margin="12,0,12,0" Height="200" Width="200"/>
+        <Viewbox Width="250" Height="250" HorizontalAlignment="Center" >
+            <Image x:Name="imgPerson" Source="{Binding imageObj}" />
         </Viewbox>
         <TextBlock x:Name="txtName" MinWidth="200" HorizontalAlignment="Center" FontWeight="Bold" />
         <TextBlock x:Name="lblUserRating" Text="User Rating" />

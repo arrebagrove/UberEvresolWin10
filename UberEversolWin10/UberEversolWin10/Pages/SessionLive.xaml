@@ -10,7 +10,7 @@
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock x:Name="lblTitle" Text="Session Live" FontSize="27" Padding="15" />
         <StackPanel Padding="10 20">
-            <TextBox x:Name="txtDate" Header="Date" Text="{Binding created}" PlaceholderText="Title" MinWidth="200"/>
+            <TextBox x:Name="txtDate" Header="Date" Text="{Binding created}" PlaceholderText="Date" MaxWidth="200" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200"
                      Text="{Binding title}"
                      HorizontalAlignment="Left" />
@@ -72,13 +72,17 @@
                             <RowDefinition Height="*"  />
                         </Grid.RowDefinitions>-->
                         <TextBlock Grid.Column="0" Text="{Binding index}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <Image x:Name="imgSubject" Height="75" Width="75" Grid.Column="1" />
+                        <Viewbox Width="50" Height="50" Grid.Column="1" HorizontalAlignment="Center" Margin="10 0" >
+                            <Image x:Name="imgPerson" Source="{Binding subject.imageObj}" />
+                        </Viewbox>
                         <StackPanel Grid.Column="2" HorizontalAlignment="Left">
                             <!--<TextBlock Grid.Column="1" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:dd/MM/yyyy}'}" />-->
-                            <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontSize="13" FontWeight="Bold" />
+                            
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="lblSubjectFName" Text="{Binding subject.first_name}" HorizontalAlignment="Left" FontSize="11" />
-                                <TextBlock x:Name="lblSubjectLName" Text="{Binding subject.last_name}" HorizontalAlignment="Left" FontSize="11" Margin="5 0" />
+                                <TextBlock x:Name="lblSubjectFName" Text="{Binding subject.first_name}" HorizontalAlignment="Left" />
+                                <TextBlock x:Name="lblSubjectLName" Text="{Binding subject.last_name}" HorizontalAlignment="Left" Margin="5 0" />
+                                <TextBlock Text="-" />
+                                <TextBlock x:Name="lblTitle" Text="{Binding title}" HorizontalAlignment="Left" FontWeight="Bold" Margin="5 0" />
                             </StackPanel>
                             <TextBlock x:Name="lblDesc" Text="{Binding description}" FontSize="10" />
                             <TextBlock x:Name="lblDuration" Text="00:00:00" HorizontalAlignment="Left" />

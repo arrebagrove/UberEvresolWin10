@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using UberEversol.Model;
+using UberEversol.DataModel;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -44,7 +44,7 @@ namespace UberEversol.Pages
             if (e.Parameter != null)
                 sId = int.Parse(e.Parameter.ToString());
 
-            person = person.DBGet(sId);    // Load the session object
+            person = Subject.DBGet(sId);    // Load the session object
             lblTitle.Text = lblTitle.Text + " - " + sId.ToString();
 
             if (person != null)

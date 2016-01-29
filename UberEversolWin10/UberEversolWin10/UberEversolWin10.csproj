@@ -101,9 +101,9 @@
     <Compile Include="Data\DBHandler.cs" />
     <Compile Include="DateToStringConverter.cs" />
     <Compile Include="ImageTools.cs" />
-    <Compile Include="Migrations\20160119071802_first_migration.cs" />
-    <Compile Include="Migrations\20160119071802_first_migration.designer.cs">
-      <DependentUpon>20160119071802_first_migration.cs</DependentUpon>
+    <Compile Include="Migrations\20160128235040_Initial_migration.cs" />
+    <Compile Include="Migrations\20160128235040_Initial_migration.designer.cs">
+      <DependentUpon>20160128235040_Initial_migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />

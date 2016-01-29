@@ -18,7 +18,7 @@ namespace UberEversol.DataModel
     {
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Track> Tracks { get; set; }
-        public DbSet<TrackSubjects> TracksSubjects { get; set; }
+        //public DbSet<TrackSubjects> TracksSubjects { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
         public DbSet<MediaRequest> MediaRequest { get; set; }
@@ -106,15 +106,15 @@ namespace UberEversol.DataModel
     /// <summary>
     /// Track and Subjects Many To Many relationship
     /// </summary>
-    public partial class TrackSubjects
-    {
-        [Key]
-        public int id { get; set; }
-        [ForeignKey("track_id")]
-        public int track_id { get; set; }
-        [ForeignKey("subject_id")]
-        public virtual ICollection<Subject> subjects { get; set; }
-    }
+    //public partial class TrackSubjects
+    //{
+    //    [Key]
+    //    public int id { get; set; }
+    //    [ForeignKey("track_id")]
+    //    public int track_id { get; set; }
+    //    [ForeignKey("subject_id")]
+    //    public virtual ICollection<Subject> subjects { get; set; }
+    //}
 
     /// <summary>
     /// Base class for Subject and Requestee

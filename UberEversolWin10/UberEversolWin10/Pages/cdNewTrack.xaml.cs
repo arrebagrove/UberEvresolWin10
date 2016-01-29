@@ -33,17 +33,18 @@ namespace UberEversol.Pages
         {
             this.InitializeComponent();
 
-            List<Subject> subject_list;
-            using (var db = new UberEversolContext())
-            {
-                // Get the list of subject names and ids
-                subject_list = db.Subjects.OrderBy(t => t.first_name).ToList();
-            }
+            //List<Subject> subject_list;
+            //using (var db = new UberEversolContext())
+            //{
+            //    // Get the list of subject names and ids
+            //    subject_list = db.Subjects.OrderBy(t => t.last_name).ToList();
+            //}
 
-            foreach (Subject s in subject_list)
-            {
-                cboSubjects.Items.Add(s);
-            }
+            //foreach (Subject s in subject_list.Where(s => s.image != null))
+            //    s.imageObj = await s.loadImage();
+
+            //foreach (Subject s in subject_list)
+            //    cboSubjects.Items.Add(s);
         }
 
         /// <summary>
@@ -51,17 +52,19 @@ namespace UberEversol.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
+        private async void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
             List<Subject> subject_list;
             using (var db = new UberEversolContext())
             {
                 // Get the list of subject names and ids
-                subject_list = db.Subjects.OrderBy(t => t.first_name).ToList();
+                subject_list = db.Subjects.OrderBy(t => t.last_name).ToList();
             }
 
-            foreach(Subject s in subject_list)
+            foreach (Subject s in subject_list)
             {
+                if (s.image != null)
+                        s.imageObj = await s.loadImage();
                 cboSubjects.Items.Add(s);
             }
         }

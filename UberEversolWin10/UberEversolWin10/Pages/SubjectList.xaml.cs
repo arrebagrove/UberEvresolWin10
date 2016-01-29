@@ -23,6 +23,8 @@ namespace UberEversol.Pages
     /// </summary>
     public sealed partial class SubjectList : Page
     {
+        public List<Subject> subjectList;
+
         public SubjectList()
         {
             this.InitializeComponent();
@@ -33,11 +35,17 @@ namespace UberEversol.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             using (var db = new UberEversolContext())
             {
-                subject_list.ItemsSource = db.Subjects.ToList();
+                subjectList = db.Subjects.OrderBy(s => s.last_name).ToList();
+                foreach (Subject s in subjectList.Where(s => s.image != null))
+                {
+                    s.imageObj = await s.loadImage();
+                }
+
+                subject_list.ItemsSource = subjectList;
             }
         }
 
@@ -62,9 +70,9 @@ namespace UberEversol.Pages
             //    }
             //}
 
-            cdViewSubject newSubjectDialog = new cdViewSubject();
-            newSubjectDialog.selSubject = (Subject)subject_list.SelectedItem;
-            await newSubjectDialog.ShowAsync();
+            cdViewSubject viewSubjectDialog = new cdViewSubject();
+            viewSubjectDialog.selSubject = (Subject)subject_list.SelectedItem;
+            await viewSubjectDialog.ShowAsync();
         }
 
         /// <summary>
@@ -97,7 +105,7 @@ namespace UberEversol.Pages
             {
                 // Add New was successful.
                 // Refresh the listview
-                using (var db = new UberEversolContext())
+                using (var db = new DataModel.UberEversolContext())
                 {
                     subject_list.ItemsSource = db.Subjects.ToList();
                 }

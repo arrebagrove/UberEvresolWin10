@@ -4,7 +4,6 @@ using Microsoft.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UberEversol.DataModel;
 
 namespace UberEversol.DataModel
 {
@@ -88,7 +87,7 @@ namespace UberEversol.DataModel
         public void loadStructures()
         {
             this.subject = new Subject();
-            this.subject = this.subject.DBGet(this.subject_id);
+            this.subject = Subject.DBGet(this.subject_id);
         }
 
         /// <summary>
@@ -175,7 +174,7 @@ namespace UberEversol.DataModel
                     //                         select s).ToList();
                     //}
 
-                    trk.subject = trk.subject.DBGet(trk.subject_id); // Load the subject from DB
+                    trk.subject = Subject.DBGet(trk.subject_id); // Load the subject from DB
 
                     return trk;
                 }

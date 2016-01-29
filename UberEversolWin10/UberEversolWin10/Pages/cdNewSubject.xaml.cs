@@ -18,6 +18,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 
+
 // The Content Dialog item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace UberEversol.Pages
@@ -35,6 +36,7 @@ namespace UberEversol.Pages
         public Subject newSub;
         public cdResult result { get; set; }
         byte[] imgTemp;
+        BitmapImage bitmapImage = new BitmapImage();
 
         public cdNewSubject()
         {
@@ -49,8 +51,10 @@ namespace UberEversol.Pages
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             newSub = new Subject(txtFirstName.Text, txtLastName.Text);
+            newSub.image = imgTemp;
+            newSub.setImage(bitmapImage);
 
-            using (var db = new UberEversolContext())
+            using (var db = new DataModel.UberEversolContext())
             {
                 db.Subjects.Add(newSub);
                 db.SaveChanges();
@@ -60,7 +64,6 @@ namespace UberEversol.Pages
 
             FlyoutBase.SetAttachedFlyout(this, (FlyoutBase)this.Resources["notifyFlyout"]);
             FlyoutBase.ShowAttachedFlyout(this);
-
             FlyoutBase.GetAttachedFlyout(this).Hide();
         }
 
@@ -87,11 +90,6 @@ namespace UberEversol.Pages
             this.Hide();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            newSub = new Subject(txtFirstName.Text, txtLastName.Text);
-            newSub.image = imgTemp;
-        }
 
         /// <summary>
         /// Choose image click event
@@ -124,17 +122,14 @@ namespace UberEversol.Pages
                 using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
                 {
                     // Set the image source to the selected bitmap
-                    BitmapImage bitmapImage = new BitmapImage();
+                    
                     bitmapImage.DecodePixelHeight = decodePixelHeight;
                     bitmapImage.DecodePixelWidth = decodePixelWidth;
 
                     await bitmapImage.SetSourceAsync(fileStream);
                     imgPerson.Source = bitmapImage;
 
-                    ImageTools img = new ImageTools();
-
-                    imgTemp = await img.ConvertToBytes(fileStream);  // Convert the image to bytes
-                    
+                    imgTemp = await ImageTools.StreamToBytes(fileStream);
                 }
             }
         }

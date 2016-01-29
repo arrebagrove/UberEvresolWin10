@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using System.IO;
 using Windows.Storage;
-using UberEversol.DataModel;
+using System.ComponentModel.DataAnnotations;
+using Windows.UI.Xaml.Media.Imaging;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UberEversol.DataModel
 {
     public partial class Subject
     {
+        // properties
+        [NotMapped]
+        public BitmapImage imageObj { get; set; }
 
         /// <summary>
         /// Default Constructor
@@ -96,10 +101,11 @@ namespace UberEversol.DataModel
         /// Sets the image of the subject to storage
         /// </summary>
         /// <param name="imageFile"></param>
-        public void setImage(StorageFile imageFile)
+        public void setImage(BitmapImage imageFile)
         {
             // Set the image file to string
-            string fileType = imageFile.FileType;
+            if (imageFile != null)
+                imageObj = imageFile;
             
         }
 
@@ -107,9 +113,19 @@ namespace UberEversol.DataModel
         /// Gets the storage file stored in the string
         /// </summary>
         /// <returns></returns>
-        public StorageFile getImage()
+        public BitmapImage getImage()
         {
-            return null;
+            return imageObj;
+        }
+
+        /// <summary>
+        /// Loads the image from the byte array
+        /// </summary>
+        public async Task<BitmapImage> loadImage()
+        {
+            if (image != null && image.Count() > 0)
+                imageObj = await ImageTools.BytesToImage(this.image);
+            return imageObj;
         }
 
         /// <summary>
@@ -149,7 +165,7 @@ namespace UberEversol.DataModel
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A subject from database</returns>
-        public Subject DBGet(int id)
+        public static Subject DBGet(int id)
         {
             if (id > 0)
             {

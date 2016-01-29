@@ -40,6 +40,7 @@ namespace UberEversol.Pages
         private void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
             // Get the selected user
+            imgPerson.Source = selSubject.imageObj;
             txtName.Text = selSubject.first_name + " " + selSubject.last_name;
             txtRecordings.Text = selSubject.recording_count.ToString();
             txtUserRating.Text = selSubject.user_rating.ToString();

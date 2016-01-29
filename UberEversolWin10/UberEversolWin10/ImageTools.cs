@@ -16,13 +16,44 @@ namespace UberEversol
     {
         public ImageTools() { }
 
-        public async Task<byte[]> ConvertToBytes(IRandomAccessStream s)
+        /// <summary>
+        /// Convert Image to Byte array
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static async Task<byte[]> StreamToBytes(IRandomAccessStream s)
         {
             var dReader = new DataReader(s.GetInputStreamAt(0));
             var bytes = new byte[s.Size];
             await dReader.LoadAsync((uint)s.Size);
             dReader.ReadBytes(bytes);
             return bytes;
+        }
+
+        /// <summary>
+        /// Convert Byte array to Image
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static async Task<BitmapImage> BytesToImage(byte[] src)
+        {
+            BitmapImage img = new BitmapImage();
+
+            if (src != null && src.Length != 0)
+            {
+                using (InMemoryRandomAccessStream ms = new InMemoryRandomAccessStream())
+                {
+                    using (DataWriter writer = new DataWriter(ms.GetOutputStreamAt(0)))
+                    {
+                        writer.WriteBytes(src);
+                        await writer.StoreAsync();
+                    }
+
+                    await img.SetSourceAsync(ms);
+                }
+            }
+
+            return img;
         }
     }
 }

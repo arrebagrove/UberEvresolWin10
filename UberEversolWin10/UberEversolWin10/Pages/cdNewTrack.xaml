@@ -10,7 +10,8 @@
     PrimaryButtonText="Save"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    Opened="ContentDialog_Opened">
 
     <StackPanel>
         <TextBox x:Name="txtTitle" MaxLength="200" Header="Title" />
@@ -20,9 +21,11 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding IconPath}"></Image>
-                        <TextBlock Text="{Binding first_name}" FontWeight="SemiBold" />
-                        <TextBlock Text="{Binding last_name}" FontWeight="SemiBold" Padding="5 0"/>
+                        <Viewbox Width="50" Height="50" Grid.Column="1" HorizontalAlignment="Center" Margin="10 0" >
+                            <Image x:Name="imgPerson" Source="{Binding imageObj}" />
+                        </Viewbox>
+                        <TextBlock Text="{Binding first_name}" FontWeight="SemiBold" Height="50" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding last_name}" FontWeight="SemiBold" Height="50" VerticalAlignment="Center" Padding="5 0"/>
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
