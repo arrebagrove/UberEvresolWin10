@@ -50,6 +50,7 @@ namespace UberEversol.Pages
                     {
                         lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();   // Temporary
                         dtDate.Date = selSession.created.Date;
+                        dtTime.Time = selSession.created.Date.TimeOfDay;
                         txtTitle.Text = selSession.title.ToString();
                         txtDescription.Text = selSession.description.ToString();
                         txtFolder.Text = selSession.folderDir != null ? selSession.folderDir.ToString() : "";
@@ -78,7 +79,7 @@ namespace UberEversol.Pages
             selSession.title = txtTitle.Text;
             selSession.description = txtDescription.Text;
             selSession.folderDir = txtFolder.Text;
-            selSession.created = dtDate.Date.Date;
+            selSession.created = dtDate.Date.Date+dtTime.Time;
 
             // Save the session
             selSession.DBUpdate();

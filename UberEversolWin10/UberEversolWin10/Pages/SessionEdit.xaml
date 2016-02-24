@@ -11,6 +11,7 @@
     <StackPanel VerticalAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
         <TextBlock x:Name="lblTitle" Text="Session Edit" FontSize="27"/>
         <DatePicker x:Name="dtDate" Header="Date" />
+        <TimePicker x:Name="dtTime" Header="Time" />
         <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200" HorizontalAlignment="Left"></TextBox>
         <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"

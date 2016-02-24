@@ -35,7 +35,9 @@ namespace UberEversol.Pages
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Session newSes = new Session(txtTitle.Text,txtDescription.Text);
-            newSes.created = dtCreatedDate.Date.Date;
+            TimeSpan timeVal = dtSessionTime.Time;
+
+            newSes.created = dtSessionDate.Date.Date + timeVal;
 
             using (var db = new UberEversolContext())
             {

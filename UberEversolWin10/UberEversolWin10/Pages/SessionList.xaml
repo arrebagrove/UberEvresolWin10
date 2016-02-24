@@ -40,7 +40,7 @@
                             <TextBlock Grid.Column="0" Text="Id" HorizontalAlignment="Center" />
                             <TextBlock Grid.Column="1" Text="Date" HorizontalAlignment="Center" />
                             <TextBlock Grid.Column="2" Text="Title" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Column="3" Text="Recordings" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="Tracks" HorizontalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -57,8 +57,13 @@
                                 <RowDefinition Height="50" />
                                 <RowDefinition Height="*"  />
                             </Grid.RowDefinitions>
+                            
                             <TextBlock Grid.Column="0" Text="{Binding id}" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Column="1" Text="{Binding created, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:MM/dd/yyyy}'}" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding created, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:MM/dd/yyyy}'}" />
+                                <TextBlock FontSize="11"
+                                    Text="{Binding created, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:h:mm tt}'}" />
+                            </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock x:Name="lblTitle"  Text="{Binding title}" HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblDesc" Text="{Binding description}" HorizontalAlignment="Left" FontSize="8" />
