@@ -7,6 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <local:DateToStringConverter x:Key="StringFormatConverter" />
+
+        <Flyout x:Name="flyNotifyFileSaved" x:Key="notifyFlyout_saved">
+            <StackPanel>
+                <SymbolIcon Symbol="Accept"/>
+                <TextBlock x:Name="txtMsg"  Text="File has been saved."/>
+            </StackPanel>
+        </Flyout>
+        <Flyout x:Name="flyNotifyFileNotSaved" x:Key="notifyFlyout_error">
+            <StackPanel>
+                <SymbolIcon Symbol="Cancel"/>
+                <TextBlock x:Name="txtMsg2"  Text="File has not been saved."/>
+            </StackPanel>
+        </Flyout>
+    </Page.Resources>
+
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock FontSize="50" Padding="10 20">Subject List</TextBlock>
         <CommandBar>
@@ -15,7 +32,7 @@
             <AppBarButton x:Name="AppBtnDelete" Icon="Remove" Label="Delete" Click="AppBtnDelete_Click"/>
             <AppBarSeparator BorderThickness="5"></AppBarSeparator>
             <AppBarButton x:Name="AppBtnImportSubjects" Icon="ImportAll" Label="Import Subjects" />
-            <AppBarButton x:Name="AppBtnExportSubjects" Icon="Save" Label="Export Subjects" />
+            <AppBarButton x:Name="AppBtnExportSubjects" Icon="Save" Label="Export Subjects" Click="AppBtnExportSubjects_Click"/>
         </CommandBar>
         <ListView x:Name="subject_list" SelectionMode="Single" CanReorderItems="True"
                   DoubleTapped="subject_list_DoubleTapped"
