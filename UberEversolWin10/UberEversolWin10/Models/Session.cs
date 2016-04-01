@@ -112,21 +112,29 @@ namespace UberEversol.DataModel
         /// <summary>
         /// Update the database with changes
         /// </summary>
-        public void DBUpdate()
+        public int DBUpdate()
         {
-            using (var db = new UberEversolContext())
+            try
             {
-                var result = db.Sessions.FirstOrDefault(s => s.id == this.id);
-                if (result != null)
+                using (var db = new UberEversolContext())
                 {
-                    result.title = this.title;
-                    result.description= this.description;
-                    result.folderDir= this.folderDir;
-                    result.created = this.created;
-                    result.hit_count = this.hit_count;
+                    var result = db.Sessions.FirstOrDefault(s => s.id == this.id);
+                    if (result != null)
+                    {
+                        result.title = this.title;
+                        result.description = this.description;
+                        result.folderDir = this.folderDir;
+                        result.created = this.created;
+                        result.hit_count = this.hit_count;
 
-                    db.SaveChanges();
+                        db.SaveChanges();
+                    }
                 }
+                return 0;
+            }
+            catch (Exception e)
+            {
+                return -1;
             }
         }
 

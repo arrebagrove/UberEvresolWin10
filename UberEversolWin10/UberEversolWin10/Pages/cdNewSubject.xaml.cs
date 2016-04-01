@@ -23,13 +23,6 @@ using Windows.Storage.Streams;
 
 namespace UberEversol.Pages
 {
-    public enum cdResult
-    {
-        AddSuccess,
-        AddFail,
-        AddCancel
-    }
-
     public sealed partial class cdNewSubject : ContentDialog
     {
 

@@ -10,9 +10,23 @@
 
     <Page.Resources>
         <local:DateToStringConverter x:Key="StringFormatConverter" />
-    </Page.Resources>
-    
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Flyout x:Name="flyNotifySessionSaved" x:Key="notifyFlyout_updated">
+            <StackPanel>
+                <SymbolIcon Symbol="Accept"/>
+                <TextBlock x:Name="txtMsg"  Text="Session has been updated."/>
+            </StackPanel>
+        </Flyout>
+        <Flyout x:Name="flyNotifySessionNotSaved" x:Key="notifyFlyout_error">
+            <StackPanel>
+                <SymbolIcon Symbol="Cancel"/>
+                <TextBlock x:Name="txtMsg2"  Text="Session update error."/>
+            </StackPanel>
+        </Flyout>
+        </Page.Resources>
+
+
+        <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <CommandBar>
             <AppBarButton x:Name="appBtnNewSession" Icon="Add" Label="New" Click="appBtnNewSession_Click"  />
             <AppBarButton x:Name="appBtnRemoveSession" Icon="Remove" Label="Delete" Click="appBtnRemoveSession_Click"/>
@@ -68,7 +82,7 @@
                                 <TextBlock x:Name="lblTitle"  Text="{Binding title}" HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblDesc" Text="{Binding description}" HorizontalAlignment="Left" FontSize="8" />
                             </StackPanel>
-                            <TextBlock x:Name="lblRecCount" Grid.Column="3" Text="#" HorizontalAlignment="Center" />
+                            <TextBlock x:Name="lblRecCount" Grid.Column="3" Text="{Binding tracks}" HorizontalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

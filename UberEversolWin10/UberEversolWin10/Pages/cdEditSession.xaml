@@ -1,0 +1,33 @@
+﻿<ContentDialog
+    x:Class="UberEversol.Pages.cdEditSession"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UberEversol.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Edit Session"
+    PrimaryButtonText="Save"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
+    Opened="ContentDialog_Opened">
+
+    <StackPanel VerticalAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="15">
+        <DatePicker x:Name="dtDate" Header="Date"  />
+        <TimePicker x:Name="dtSessionTime" Header="Time" />
+        <TextBox x:Name="txtTitle" Header="Title" PlaceholderText="Title" MinWidth="200"
+                 Text="{Binding title}"
+                 HorizontalAlignment="Left" />
+        <TextBox x:Name="txtDescription" TextWrapping="Wrap" MaxHeight="300" Header="Description"
+                 Text="{Binding description}"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 PlaceholderText="Description"
+                 HorizontalAlignment="Left"
+                 Width="300" />
+        <TextBox x:Name="txtFolder" Header="Folder"  PlaceholderText="Folder" Width="300"
+                 Text="{Binding folderDir}"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Left" />
+    </StackPanel>
+</ContentDialog>

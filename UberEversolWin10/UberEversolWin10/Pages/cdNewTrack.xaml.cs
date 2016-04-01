@@ -18,11 +18,6 @@ using UberEversol.DataModel;
 
 namespace UberEversol.Pages
 {
-    public enum cdClicked
-    {
-        Save,
-        Cancel
-    }
 
     public sealed partial class cdNewTrack : ContentDialog
     {

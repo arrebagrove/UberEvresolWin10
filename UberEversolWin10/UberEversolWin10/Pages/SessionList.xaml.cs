@@ -36,10 +36,7 @@ namespace UberEversol.Pages
         /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            using (var db = new UberEversolContext())
-            {
-                session_list.ItemsSource = db.Sessions.ToList();
-            }
+            refreshSessionList();
         }
 
         private void session_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,16 +159,38 @@ namespace UberEversol.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void appBtnEditSession_Click(object sender, RoutedEventArgs e)
+        private async void appBtnEditSession_Click(object sender, RoutedEventArgs e)
         {
-            var frame = this.DataContext as Frame;
+            cdEditSession newEditSessionDialog = new cdEditSession((Session)session_list.SelectedItem);
+            await newEditSessionDialog.ShowAsync();
 
-            if (session_list.SelectedIndex >= 0)
+            if (newEditSessionDialog.result == cdResult.UpdateSuccess)
             {
-                int selId = ((Session)session_list.SelectedItem).id;
+                refreshSessionList();  // Refresh the listview
 
-                // Open the session live and pass the Id in to the frame
-                frame.Navigate(typeof(SessionEdit), selId);
+                // Display notification of updated subject
+                FlyoutBase.SetAttachedFlyout(this, (FlyoutBase)this.Resources["notifyFlyout_updated"]);
+                FlyoutBase.ShowAttachedFlyout(this);
+            }
+            else if (newEditSessionDialog.result == cdResult.UpdateFail)
+            {
+                // Display notification of error
+                FlyoutBase.SetAttachedFlyout(this, (FlyoutBase)this.Resources["notifyFlyout_error"]);
+                FlyoutBase.ShowAttachedFlyout(this);
+            }
+            else if (newEditSessionDialog.result == cdResult.UpdateCancel)
+            {
+                // Add failed.
+                // Prompt User
+            }
+        }
+
+        // Refreshes the session list
+        private void refreshSessionList()
+        {
+            using (var db = new DataModel.UberEversolContext())
+            {
+                session_list.ItemsSource = db.Sessions.ToList();
             }
         }
     }

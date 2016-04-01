@@ -101,9 +101,9 @@
     <Compile Include="Data\DBHandler.cs" />
     <Compile Include="DateToStringConverter.cs" />
     <Compile Include="ImageTools.cs" />
-    <Compile Include="Migrations\20160128235040_Initial_migration.cs" />
-    <Compile Include="Migrations\20160128235040_Initial_migration.designer.cs">
-      <DependentUpon>20160128235040_Initial_migration.cs</DependentUpon>
+    <Compile Include="Migrations\20160224040417_first.cs" />
+    <Compile Include="Migrations\20160224040417_first.designer.cs">
+      <DependentUpon>20160224040417_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\UberEversolContextModelSnapshot.cs" />
     <Compile Include="Model.cs" />
@@ -118,6 +118,9 @@
     <Compile Include="Models\TrackSubjects.cs" />
     <Compile Include="Pages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\cdEditSession.xaml.cs">
+      <DependentUpon>cdEditSession.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\cdNewSession.xaml.cs">
       <DependentUpon>cdNewSession.xaml</DependentUpon>
@@ -134,6 +137,7 @@
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageUtilities.cs" />
     <Compile Include="Pages\RecordingEdit.xaml.cs">
       <DependentUpon>RecordingEdit.xaml</DependentUpon>
     </Compile>
@@ -203,6 +207,10 @@
     <Page Include="Pages\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\cdEditSession.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\cdNewSession.xaml">
       <SubType>Designer</SubType>
