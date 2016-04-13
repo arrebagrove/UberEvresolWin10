@@ -75,7 +75,7 @@ namespace UberEversol.DataModel
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Session DBGet(int id)
+        static public Session DBGet(int id)
         {
             // Populate object with data from database
             using (var db = new UberEversolContext())

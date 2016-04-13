@@ -44,7 +44,7 @@ namespace UberEversol.Pages
 
                 if (sessionId > 0)  // Check if the session id is valid
                 {
-                    selSession = selSession.DBGet(sessionId);    // Load the session object
+                    selSession = Session.DBGet(sessionId);    // Load the session object
 
                     if (selSession != null)
                     {

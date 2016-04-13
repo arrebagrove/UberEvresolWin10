@@ -66,7 +66,7 @@ namespace UberEversol.Pages
             if(e.Parameter != null)
                 sessionId = int.Parse(e.Parameter.ToString());
 
-            selSession = selSession.DBGet(sessionId);    // Load the session object
+            selSession = Session.DBGet(sessionId);    // Load the session object
 
             lblTitle.Text = lblTitle.Text + " - " + sessionId.ToString();
 
