@@ -7,7 +7,70 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock FontSize="50">Search Page</TextBlock>
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock FontSize="50"  Margin="10 20">Search Page</TextBlock>
+        <StackPanel Orientation="Horizontal" Padding="10 20">
+            <TextBox x:Name="txtQry" Width="600" Margin="10 20" PlaceholderText="Search" TextWrapping="NoWrap" />
+            <TextBlock Text="in" Padding="10 20" />
+            <ComboBox x:Name="cboFields" Margin="0 20">
+                <ComboBoxItem IsSelected="True">Sessions</ComboBoxItem>
+                <ComboBoxItem>Tracks</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="btnSearch" Width="150" Margin="10 0"
+                    Click="btnSearch_Click">Search</Button>
+        </StackPanel>
+        
+        <ListView x:Name="lstvResultsSessions" Tag="Sessions" Margin="10 0">
+            <ListView.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Sessions" Width="66%" />
+                    <TextBlock x:Name="txtSesResultCount" Text="Search Returned: " />
+                </StackPanel>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="66%">
+                            <TextBlock x:Name="lblTitle" Text="{Binding title}" />
+                            <TextBlock x:Name="lblDesc" Text="{Binding description}" />
+                        </StackPanel>
+                        <StackPanel Width="34%">
+                            <TextBlock x:Name="lblSession" Text="{Binding created}" />
+                            <TextBlock x:Name="lblTracksCnt" Text="{Binding tracks.count}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="lstvResultsTracks" Tag="Tracks" Margin="10 0" Visibility="Collapsed">
+            <ListView.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Tracks" Width="66%" />
+                    <TextBlock x:Name="txtTrkResultCount" Text="Search Returned: " />
+                </StackPanel>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="66*" />
+                            <ColumnDefinition Width="34*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" x:Name="imgPerson" Margin="10 0" Source="{Binding subject.imageObj}" />
+                        <StackPanel Grid.Column="1">
+                            <TextBlock x:Name="lblTitle" Text="{Binding title}" MinWidth="100" />
+                            <TextBlock x:Name="lblDescr" Text="{Binding description}" MinWidth="100" />
+                            <TextBlock x:Name="lblSession" Text="{Binding session.title}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock x:Name="lblDuration" Text="{Binding duration}" />
+                            <TextBlock x:Name="lblFileName" Text="{Binding file_name}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </Page>
