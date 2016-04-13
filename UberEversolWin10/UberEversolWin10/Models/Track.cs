@@ -86,8 +86,17 @@ namespace UberEversol.DataModel
         /// </summary>
         public void loadStructures()
         {
-            this.subject = new Subject();
-            this.subject = Subject.DBGet(this.subject_id);
+            if (this.subject == null)
+            {
+                this.subject = new Subject();
+                this.subject = Subject.DBGet(this.subject_id);
+            }
+
+            if (this.session == null)
+            {
+                this.session = new Session();
+                this.session = Session.DBGet(this.session_id);
+            } 
         }
 
         /// <summary>
